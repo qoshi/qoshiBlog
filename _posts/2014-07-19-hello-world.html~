@@ -1,7 +1,6 @@
 ---
 layout: default
 title: hello,world
-category : Leetcode
 ---
 <h2>{{ page.title }} </h2>
 <p> the first page </p>
