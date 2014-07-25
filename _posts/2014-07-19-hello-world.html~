@@ -1,7 +1,7 @@
 ---
 layout: post
 title: hello,world
-tag: Leetcode
+categries: Leetcode
 ---
 <h2>{{ page.title }} </h2>
 <p> the first page </p>
