@@ -16,7 +16,7 @@ if ($(window).width() <= 1280) {
     tag3       = $('.Study'),
     tag4       = $('.Reading'),
     tag5       = $('.Job'),
-    tag6       = $('.Technology');
+    tag6       = $('.My_Resume');
 var sidebar    = $('#sidebar'),
     container  = $('#post'),
     content    = $('#pjax'),
@@ -134,7 +134,7 @@ function afterPjax() {
   var ds_loaded = false,
       top = $('#disqus_thread').offset().top;
       identifier = $('#post__title').data('identifier');
-  window.disqus_shortname = '';
+  window.disqus_shortname = 'qoshi';
   window.disqus_identifier = identifier;
 
   function check() {
