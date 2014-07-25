@@ -1,4 +1,4 @@
-git add *
+git add --all
 if [ "$1" =  "" ];
 then
     git commit -m "default"
