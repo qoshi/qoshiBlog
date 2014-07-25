@@ -1,3 +1,8 @@
 git add *
-git commit -m $1
-git push origin gh-pages
+if [ "$1" =  "" ];
+then
+    git commit -m "default"
+else
+    git commit -m $1
+fi
+    git push origin gh-pages
