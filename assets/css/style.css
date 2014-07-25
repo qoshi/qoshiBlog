@@ -116,7 +116,12 @@ a {
     /* -ms-animation: spin .35s linear infinite; */
     /* -o-animation: spin .35s linear infinite; */
     /* animation: spin .35s linear infinite; } */
-      transform: scale(1.2);}
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      -o-transform: scale(1.2);
+  }
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     #avatar {
       background: url(/assets/img/avatar@2X.png);
