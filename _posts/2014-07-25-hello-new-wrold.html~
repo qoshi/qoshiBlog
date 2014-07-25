@@ -1,7 +1,7 @@
 ---
 layout: post
 title: a brand new world
-___
+---
 <h2> {{ page.title }} </h2>
 <p> This is the first page I am writting on github.</p>
 <p> I build this bolg using<a href="http://jekyllcn.com">Jekyll</a>.The theme is stolen from <a href="https://github.com/P233/3-Jekyll">3-Jekyll</a>.<p>
