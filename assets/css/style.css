@@ -1251,11 +1251,11 @@ pre > code {
 
 /* Literal.Number.Integer.Long */
 
-#resume_h3{
+.resume_h3{
     color : red;
     margin-bottom : 0;
 }
-#resume_hr{
+.resume_hr{
     color : red;
     border : 0;
     height : 1px;
