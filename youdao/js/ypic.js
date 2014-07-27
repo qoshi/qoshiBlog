@@ -188,7 +188,6 @@ function Pic ( div, url ) {
         scale += point.action*defaultZoomScale;
         midLeft *= scale;
         midTop *= scale;
-        console.log(midLeft+" "+midTop);
         offsetX = point.x - midLeft;
         offsetY =  point.y - midTop;
         move ();
@@ -227,7 +226,6 @@ function Pic ( div, url ) {
     
     //pinch start 
     function pinchStart( event ) {
-        console.log(event);
         if ( info )   {
             innerDiv.removeChild(info);
             info = null;
