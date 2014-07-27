@@ -14,9 +14,9 @@
     <input type="button" id="setVisiable">
     <input type="button" id="refresh">
   </body>
-  <script src="./js/hammer.min.js"></script>
   <script src="./js/pic.js"></script>
   <script src="./js/slave.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/hammer.min.js"></script>
 </html>
 
