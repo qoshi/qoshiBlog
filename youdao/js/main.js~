@@ -1,0 +1,6 @@
+window.onload = function() {
+    document.body.addEventListener("touchmove",function() {
+        event.preventDefault();
+    });
+    var pic = new Pic(document.getElementById("mainbox"),"./pic/test.jpeg");
+}

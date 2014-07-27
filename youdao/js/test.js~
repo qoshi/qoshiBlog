@@ -1,0 +1,209 @@
+function Pic ( div, url ) {
+    //save the detail
+    var div = div;
+    var url = url;
+
+    //zoom level
+    var scale = 1;
+
+    //position offsetX and offsetY
+    var offsetX = 0;
+    var offsetY = 0;
+
+    //record the position when touchdown
+    var initX = 0;
+    var initY = 0;
+    //use to caculate the new position
+    var startX = 0;
+    var startY = 0;
+    //whether it is dragging
+    var isDragging = false;
+    
+    //zones are clickable
+    var zones = getSomeZone(100);//[{left : 100, top : 100, width:100},{left : 200 ,top : 150, width:50}];
+    //Zones visiblity
+    var isZonesVisible = true;
+    
+    //build the innerDiv
+    var innerDiv = document.createElement("div");
+    innerDiv.style.position = "absolute";
+    innerDiv.style.left = "0";
+    innerDiv.style.top = "0";
+
+    //build the innerCanvas
+    var innerCanvas = document.createElement("canvas");
+    innerCanvas.style.position = "absolute";
+    innerCanvas.style.left = "0";
+    innerCanvas.style.top = "0";
+    
+    //get the 2D canvas context
+    var context = innerCanvas.getContext("2d");
+
+    //add the two element to the dom tree
+    div.appendChild(innerDiv);
+    innerDiv.appendChild(innerCanvas);
+
+    //using Image as the src of canvacs
+    var img = new Image();
+    img.onload = init;
+    img.src = url;
+    var imgWidth = 0;
+    var imgHeight = 0;
+
+    function init() {
+        imgWidth = parseFloat(img.width);
+        imgHeight = parseFloat(img.height);
+        draw();
+    }
+
+    function draw() {
+        drawImage();
+        if ( true === isZonesVisible ) {
+            drawZones();
+        }
+    }
+    
+    //draw the picture
+    function drawImage() {
+        context.clearRect(0,0,innerCanvas.width,innerCanvas.height);
+        var newW = imgWidth*scale;
+        var newH = imgHeight*scale;
+        innerCanvas.width = newW;
+        innerCanvas.height = newH;
+        context.drawImage(img,0,0,newW,newH);
+    }
+    
+    //draw the zones
+    function drawZones() {
+        var i;
+        for ( i in zones ) {
+            context.lineWidth = 1;
+            context.strokeStyle = "red";
+            context.strokeRect(zones[i].x,zones[i].y,zones[i].width,zones[i].width);
+        }
+        // context.stroke();
+    }
+
+    //move the left top to new position
+    function move() {
+        innerDiv.style.left = offsetX+"px";
+        innerDiv.style.top = offsetY+"px";
+    }
+    
+    //zoom the pic with deltaScale
+    function zoom( deltaScale ) {
+        scale += deltaScale;
+        draw();
+    }
+    
+    // touchdown and start to move
+    function moveStart( event ) {
+        isDragging = true;
+        startX = event.gesture.deltaX;
+        startY = event.gesture.deltaY;
+        initX = startX;
+        initY = startY;
+        return false;
+    }
+    // touchmove
+    function moving( event ) {
+        if ( isDragging ) {
+            var dx = event.gesture.deltaX - startX;
+            var dy = event.gesture.deltaY - startY;
+            startX = event.gesture.deltaX;
+            startY = event.gesture.deltaY;
+            offsetX += dx;
+            offsetY += dy;
+            move();
+        }
+        return false;
+    }
+    //touchend and end move
+    function moveEnd(event) {
+        isDragging = false;
+        console.log(startX+" "+initX);
+        console.log(startY+" "+initY);
+        if ( startX === initX && startY === initY ) {
+            console.log(startX+" "+startY);
+        }
+        return false;
+    }
+    //tap function
+    function tap(event) {
+        console.log(event);
+        return false;
+    }
+
+    // bind the event of 
+    function bindEvent() {
+        var hammer = new Hammer(div);
+        console.log(hammer);
+        hammer.on("dragstart",moveStart);
+        hammer.on("drag",moving);
+        hammer.on("dragend",moveEnd);
+    }
+    div.addEventListener("click",function(click) {
+        console.log(event);
+        var x = parseFloat(event.pageX)-offsetX-div.offsetLeft;
+        var y = parseFloat(event.pageY)-offsetY-div.offsetTop;
+        context.strokeStyle = "blue";
+        context.strokeRect(x-20,y-20,40,40);
+    })
+    bindEvent();
+    
+}
+
+//to check if zone is in now(a zone aleady exist)
+function checkOne(zone, now) {
+    if ( zone.x >= now.x && zone.x <= now.x+now.width && zone.y >= now.y && zone.y <= now.y+now.width ) {
+        return false;
+    }
+    if ( zone.x+zone.width >= now.x && zone.x+zone.width <= now.x+now.width && zone.y >= now.y && zone.y <= now.y+now.width ) {
+        return false;
+    }
+    if ( zone.x >= now.x && zone.x <= now.x+now.width && zone.y+zone.width >= now.y && zone.y+zone.width <= now.y+now.width ) {
+        return false;
+    }
+    if ( zone.x+zone.width >= now.x && zone.x+zone.width <= now.x+now.width && zone.y+zone.width >= now.y && zone.y+zone.width <= now.y+now.width ) {
+        return false;
+    }
+    return true;
+}
+
+//get some random zones
+function getSomeZone( counts ) {
+    var result = [];
+    var i;
+    //check if one is in zones already generated
+    function check(zone){
+        var i;
+        for ( i in result ) {
+            if ( !checkOne(zone,result[i]) || !checkOne(result[i],zone) ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //generate some zones
+    i = 0;
+    while( i < counts ) {
+        var width = Math.floor(Math.random()*150);
+        var x = Math.floor(Math.random()*(1280-width-10));
+        var y = Math.floor(Math.random()*(425-width-10));
+        var zone = {x:x,y:y,width:width};
+        if ( true === check(zone) ) {
+            result[i++] = zone;
+        }
+    }
+    console.log(result.length);
+    return result;
+}
+
+window.onload = function() {
+    document.body.addEventListener("touchmove",function() {
+        event.preventDefault();
+    });
+    var pic = new Pic(document.getElementById("mainbox"),"./pic/test.jpeg");
+}
+
+
