@@ -1,22 +1,20 @@
 <!DOCTYPE>
 <html>
   <head>
-  <meta charset="utf-8">
-  <meta name="viewpoint" context="witdh=device-width,initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="./css/style.css" type="text/css"/>
-  </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewpoint" context="witdh=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
   </head>
   <body>
     <div id="helpbox">图中红线框是可以点击的地方，刷新页面或者点击下方的refresh按钮可以重新随进生成点击区域
       <div></div>
     </div>
     <div id="mainbox"></div>
-    <input type="button" id="setVisiable">
-    <input type="button" id="refresh">
+    <input type="button" id="setVisiable" value="隐藏红框">
+    <input type="button" id="refresh" value="刷新红框">
   </body>
-  <script src="./js/pic.js"></script>
+  <script src="./js/ypic.js"></script>
   <script src="./js/slave.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/hammer.min.js"></script>
 </html>
-

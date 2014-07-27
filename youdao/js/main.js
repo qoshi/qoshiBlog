@@ -10,10 +10,10 @@ window.onload = function() {
     but1.addEventListener("click",function(){
         if ( pic.getZonesVisiable() ) {
             pic.setZonesVisiable(false);
-            but1.value="显示红框";
+            but1.value="show";
         } else {
             pic.setZonesVisiable(true);
-            but1.value="隐藏红框";
+            but1.value="hide";
         }
     });
     var but2 = document.getElementById("refresh");
