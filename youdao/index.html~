@@ -178,7 +178,7 @@ for the JavaScript code in this tag.
 <h2 id="sec-1"><span class="section-number-2">1</span> how to visit</h2>
 <div class="outline-text-2" id="text-1">
 
-<p>   <a href="http://qoshi.me/youdao/homework.html">Click me plz.</a>
+<p>   <a href="http://./homework.html">http://./homework.html</a>
 
 </p>
 <hr/>
