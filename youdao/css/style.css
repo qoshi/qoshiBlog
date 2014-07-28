@@ -39,10 +39,10 @@ input {
 }
 
 #innerDiv {
-    transition : transform 0.4s ease-in-out;
-    -webkit-transition : transform 0.4s ease-in-out;
-    -moz-transition : transform 0.4s ease-in-out;
-    -o-transition : transform 0.4s ease-in-out;
+    transition : scale 0.4s ease-in-out;
+    -webkit-transition : scale 0.4s ease-in-out;
+    -moz-transition : scale 0.4s ease-in-out;
+    -o-transition : scale 0.4s ease-in-out;
 }
 
 .zoomIn {
