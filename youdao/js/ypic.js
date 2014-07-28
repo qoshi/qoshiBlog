@@ -43,6 +43,7 @@ function Pic ( div, url ) {
     //build the innerDiv
     var innerDiv = document.createElement("div");
     innerDiv.style.position = "absolute";
+    innerDiv.id = "innerDiv";
     innerDiv.style.left = "0";
     innerDiv.style.top = "0";
 
@@ -241,6 +242,7 @@ function Pic ( div, url ) {
                            action : -1
                          };
         } else if ( currentDistance > originDistance ) {
+            innerDiv.className = "zoomIn";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : 1
@@ -251,6 +253,7 @@ function Pic ( div, url ) {
 
     //pinch end and make zoomIn or zoomOut
     function pinchEnd( event ) {
+        innerDiv.className = "";
         zoomToPoint(zoomAction);
         originDistance = undefined;
         zoomAction = null;
