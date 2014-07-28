@@ -111,18 +111,15 @@ function Pic ( div, url ) {
     function click(event) {
         var x = parseFloat(event.pageX)-offsetX-div.offsetLeft;
         var y = parseFloat(event.pageY)-offsetY-div.offsetTop;
-        console.log(x+" "+y);
         var point = {x:x/scale,y:y/scale};
-        console.log(point.x+" "+point.y);
         var num = isInZones(point);
         if ( false !== num ) {
             if ( info ) {
                 innerDiv.removeChild(info);
                 info = null;
             }
-            // point.x *= scale;
-            // point.y *= scale;
-            console.log(point.x,point.y);
+            point.x *= scale;
+            point.y *= scale;
             point.text="this is zone "+num;
             info = new Info(point);
             innerDiv.appendChild(info);
