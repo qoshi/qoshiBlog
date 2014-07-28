@@ -237,6 +237,7 @@ function Pic ( div, url ) {
         }
         var currentDistance = getDistance( gesture.touches );
         if ( currentDistance < originDistance ) {
+            innerDiv.className = "zoomOut";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : -1
