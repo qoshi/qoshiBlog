@@ -5,9 +5,11 @@ function Pic ( div, url ) {
 
     //zoom level
     var scale = 1;
+    var cssScale = 1;
+    var transmark = 0;
 
     //default zoom level
-    var defaultZoomScale = 0.2;
+    var defaultZoomScale = 0.05;
 
     //default max and min scale of the picture
     var defaultMaxScale = 3;
@@ -111,18 +113,15 @@ function Pic ( div, url ) {
     function click(event) {
         var x = parseFloat(event.pageX)-offsetX-div.offsetLeft;
         var y = parseFloat(event.pageY)-offsetY-div.offsetTop;
-        console.log(x+" "+y);
         var point = {x:x/scale,y:y/scale};
-        console.log(point.x+" "+point.y);
         var num = isInZones(point);
         if ( false !== num ) {
             if ( info ) {
                 innerDiv.removeChild(info);
                 info = null;
             }
-            // point.x *= scale;
-            // point.y *= scale;
-            console.log(point.x,point.y);
+            point.x *= scale;
+            point.y *= scale;
             point.text="this is zone "+num;
             info = new Info(point);
             innerDiv.appendChild(info);
@@ -181,29 +180,29 @@ function Pic ( div, url ) {
         var top =  parseFloat(innerDiv.style.top);
         var midLeft = point.x - left;
         var midTop = point.y - top;
-        midLeft /= scale;
-        midTop /= scale;
-        if ( point.action == -1 && scale <= defaultMinScale ) {
+        midLeft /= cssScale;
+        midTop /= cssScale;
+        if ( point.action == -1 && cssScale <= defaultMinScale ) {
             return;
         }
-        if ( point.action == 1 && scale >= defaultMaxScale ) {
+        if ( point.action == 1 && cssScale >= defaultMaxScale ) {
             return;
         }
         if ( point.action == 1 ) {
-            scale += 0.05;
+            cssScale += defaultZoomScale;
         } else {
-            scale -= 0.05;
+            cssScale -= defaultZoomScale;
         }
         // scale += point.action*defaultZoomScale;
-        midLeft *= scale;
-        midTop *= scale;
+        midLeft *= cssScale;
+        midTop *= cssScale;
         offsetX = point.x - midLeft;
         offsetY =  point.y - midTop;
         move();
-        innerDiv.style.transform = "scale("+scale+")";
-		innerDiv.style.mozTransform = "scale("+scale+")";
-		innerDiv.style.webkitTransform = "scale("+scale+")";
-		innerDiv.style.oTransform = "scale("+scale+")";
+        innerDiv.style.transform = "scale("+cssScale+")";
+		innerDiv.style.mozTransform = "scale("+cssScale+")";
+		innerDiv.style.webkitTransform = "scale("+cssScale+")";
+		innerDiv.style.oTransform = "scale("+cssScale+")";
         // draw();
     }
     
@@ -249,30 +248,43 @@ function Pic ( div, url ) {
         }
         var currentDistance = getDistance( gesture.touches );
         if ( currentDistance+3 < originDistance ) {
-            innerDiv.className = "zoomOut";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : -1
                          };
             originDistance = currentDistance;
+            if ( 0 === transmark && cssScale - defaultZoomScale > defaultMinScale ) {
+                scale = 1;
+                draw();
+                transmark = 1;
+            }
             zoomToPoint(zoomAction);
         } else if ( currentDistance > originDistance+3 ) {
-            innerDiv.className = "zoomIn";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : 1
                          };
             originDistance = currentDistance;
+            if ( 0 === transmark && cssScale + defaultZoomScale < defaultMaxScale ) {
+                scale = 1;
+                draw();
+                transmark = 1;
+            }
             zoomToPoint(zoomAction);
-
         }
         return false;
     }
 
     //pinch end and make zoomIn or zoomOut
     function pinchEnd( event ) {
+        transmark = 0;
         innerDiv.className = "";
-        // zoomToPoint(zoomAction);
+        innerDiv.style.transform = "scale("+1+")";
+		innerDiv.style.mozTransform = "scale("+1+")";
+		innerDiv.style.webkitTransform = "scale("+1+")";
+		innerDiv.style.oTransform = "scale("+1+")";
+        scale = cssScale; 
+        draw();
         originDistance = undefined;
         zoomAction = null;
     }
