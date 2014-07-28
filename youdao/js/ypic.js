@@ -196,8 +196,12 @@ function Pic ( div, url ) {
         midTop *= scale;
         offsetX = point.x - midLeft;
         offsetY =  point.y - midTop;
-        move ();
-        draw();
+        move();
+        innerDiv.style.transform = "scale("+scale+")";
+		innerDiv.style.mozTransform = "scale("+scale+")";
+		innerDiv.style.webkitTransform = "scale("+scale+")";
+		innerDiv.style.oTransform = "scale("+scale+")";
+        // draw();
     }
     
     // touchdown and start to move
