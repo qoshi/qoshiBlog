@@ -186,7 +186,12 @@ function Pic ( div, url ) {
         if ( point.action == 1 && scale >= defaultMaxScale ) {
             return;
         }
-        scale += point.action*defaultZoomScale;
+        if ( point.action == 1 ) {
+            scale *= 1.2;
+        } else {
+            scale *= 0.8;
+        }
+        // scale += point.action*defaultZoomScale;
         midLeft *= scale;
         midTop *= scale;
         offsetX = point.x - midLeft;
