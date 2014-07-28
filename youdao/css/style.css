@@ -45,18 +45,18 @@ input {
     -o-transition : -o-transform 0.4s ease-in-out;
 }
 
-.zoomIn {
-     transform:scale(1.2);
-    -webkit-transform:scale(1.2);
-    -moz-transform:scale(1.2);
-    -o-transform:scale(1.2);
-    -ms-transform:scale(1.2);
-}
+/* .zoomIn { */
+/*      transform:scale(1.2); */
+/*     -webkit-transform:scale(1.2); */
+/*     -moz-transform:scale(1.2); */
+/*     -o-transform:scale(1.2); */
+/*     -ms-transform:scale(1.2); */
+/* } */
 
-.zoomOut {
-    transform : scale(0.8);
-    -webkit-transform:scale(0.8);
-    -moz-transform:scale(0.8);
-    -o-transform:scale(0.8);
-    -ms-transform:scale(0.8);
-}
+/* .zoomOut { */
+/*     transform : scale(0.8); */
+/*     -webkit-transform:scale(0.8); */
+/*     -moz-transform:scale(0.8); */
+/*     -o-transform:scale(0.8); */
+/*     -ms-transform:scale(0.8); */
+/* } */
