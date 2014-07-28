@@ -187,9 +187,9 @@ function Pic ( div, url ) {
             return;
         }
         if ( point.action == 1 ) {
-            scale *= 1.2;
+            scale += 0.1;
         } else {
-            scale *= 0.8;
+            scale -= 0.1;
         }
         // scale += point.action*defaultZoomScale;
         midLeft *= scale;
@@ -241,18 +241,23 @@ function Pic ( div, url ) {
             originDistance = getDistance( gesture.touches );
         }
         var currentDistance = getDistance( gesture.touches );
-        if ( currentDistance < originDistance ) {
+        if ( currentDistance+5 < originDistance ) {
             innerDiv.className = "zoomOut";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : -1
                          };
-        } else if ( currentDistance > originDistance ) {
+            originDistance = currentDistance;
+            zoomToPoint(zoomAction);
+        } else if ( currentDistance > originDistance+5 ) {
             innerDiv.className = "zoomIn";
             zoomAction = { x : event.gesture.center.pageX - div.offsetLeft,
                            y : event.gesture.center.pageY - div.offsetTop,
                            action : 1
                          };
+            originDistance = currentDistance;
+            zoomToPoint(zoomAction);
+
         }
         return false;
     }
