@@ -5,5 +5,79 @@ cagegory: leetcode
 ---
 <h2>{{ page.title }}</h2>
 <p>
-  This problem looks so hard.<strong>But</strong>, it seems that I have seen this some where before. Two monthes before, when we take part in the ACM campus of BUPT, 
+  This problem looks so hard.<strong>But</strong>, it seems that I have seen this some where before. Two monthes before, when we take part in the ACM campus of BUPT, There was a problem looks like this.It was asking that<strong>Is there an three points on a same line?</strong>
 </p>
+<h3>How to resolve these two questions?</h3>
+<p>These two problems looks different. But actually they are almost same qusetions. While one is asking you to figure out the existance, the other one is asking you to figure out the maxnum.</p>
+<h4>Solve the easy one first</h4>
+<p>Obviously, the existance one question is easy. Two points could determine a line, and we just need to find out is there a line appears two or more times. Hashtable is quite suit for this problems. And this problem is resolved.</p>
+<h4>Harder one seems no longer harder</h4>
+<p>Come back to this question, it could be resolved by hashtables too. And we need to enumerate each point. For this point put the lines formed with other point into a hashtable, and get the maxnum.</p>
+<h3>someting mistake I have made</h3>
+<p>
+  <ul>
+    <li>There are duplicate points.</li>
+    <li>Do not foget add the point itself.</li>
+    <li><strong>If two line have the same one point, only the k(y=kx+b) is the important thing.</strong></li>
+    <li>The max of double in CPP is 1.79769e+308</li>
+    <li>At the begining, I save every points in the hashtable, this is really suck.</li>
+  </ul>
+</p>
+<h3>code of CPP</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for a point.
+ * struct Point {
+ *     int x;
+ *     int y;
+ *     Point() : x(0), y(0) {}
+ *     Point(int a, int b) : x(a), y(b) {}
+ * };
+ */
+class Solution {
+public:
+    int maxPoints(vector<Point> &points) {
+        int n = points.size();
+        if ( n == 0 ) {
+            return 0;
+        }
+        map < double , int > kMap;
+        kMap.clear();
+        int result = 0;
+        int same = 0;
+        for ( int i = 0; i < n; i++ ) {
+            same = 0;
+            int count = 0;
+            kMap.clear();
+            for ( int j = 0; j < n; j++ ) {
+                if ( samePoint(points[i],points[j]) ) {
+                    same++;
+                    continue;
+                }
+                double k = getK(points[i],points[j]);
+                kMap[k] += 1;
+                count = max(count,kMap[k]);
+            }
+            result = max(result,count+same);
+        }
+        return result;
+    }
+    
+    bool samePoint( Point p1, Point p2 ) {
+        return p1.x == p2.x && p1.y == p2.y;
+    }
+    
+    double getK( Point p1, Point p2 ) {
+        double x = p1.x-p2.x;
+        double y = p1.y-p2.y;
+        if ( x == 0 ) {
+            return 1.79769e+308;
+        }
+        return y/x;
+    }
+};
+{% endhighlight %}
+
+</p>
+
