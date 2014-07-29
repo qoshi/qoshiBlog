@@ -31,5 +31,19 @@ struct Node {
     int val;
     Node( int _key, int _val ) : key(_key), val(_val){}
 };
+
+class LRUCache {
+private:
+    int size;
+    list < Node > cache;
+    map < int , list< Node > :: iterator > cacheMap;
+public:
+    LRUCache(int capacity) {
+        cacheMap.clear();
+        cache.clear();
+        size = capacity;
+    }
+};
+
 {% endhighlight %}
 </p>
