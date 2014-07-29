@@ -1,536 +1,86 @@
-[yas] Discovered there was already *scratch* in fundamental-mode
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode
-Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode/.yas-setup.el (source)...done
-[yas] Prepared just-in-time loading for ~/.emacs.d/plugins/yasnippet/snippets
-[yas] Reloaded everything (snippets will load just-in-time)....
-[yas] Loading for `lisp-interaction-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode) (quote lisp-interaction-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode
-[yas] Loading for `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode
-[yas] Loading for `prog-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode) (quote prog-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode
-Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode/.yas-setup.el (source)...done
-For information about GNU Emacs and the GNU system, type C-h C-a.
-Tramp: Opening connection for root@lulala.local using sudo...
-Tramp: Sending command `exec sudo -u root -s -H -p Password:'
+---
+layout: post
+title: binary tree postorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Normal problem</h3>
+<p>Easy to user recursive way to resolve this. Iterat solution is not very hard to figure out.</p>
+<h3>Recurisive one</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode *root) {
+        vector< int > result;
+        result.clear();
+        travel(root,result);
+        return result;
+    }
+    void travel( TreeNode* root, vector< int > &result ) {
+        if ( !root ) {
+            return;
+        }
+        travel(root->left,result);
+        travel(root->right,result);
+        result.push_back(root->val);
+    }
+};
+{% endhighlight %}
+</p>
+<h3>Iterative solition</h3>
+<p>Postorder travelsal is something like DFS, and when we get back to the point we already visited before we put it into the result. Using a stack to save the path.Each time we get the top of the stack. If this is the second time we visit it, and we just put it to the back of result. If this is the first time we visited it, just put it back and push it's <strong>left and right</strong> child into the stack if there is left or right child.</p>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode *root) {
+        vector< int > result;
+        result.clear();
+        if ( !root ) {
+            return result;
+        }
+        stack < pair< TreeNode*, int > > S;
+        while( !S.empty() ) {
+            S.pop();
+        }
+        S.push(pair < TreeNode*, int > (root, 0));
+        while( !S.empty() ) {
+            auto p = S.top();
+            S.pop();
+            if ( p.second == 1 ) {
+                result.push_back(p.first->val);
+            } else {
+                S.push(pair < TreeNode*, int > (p.first,1));
+                if ( p.first->right ) {
+                    S.push(pair < TreeNode*, int > (p.first->right,0));
+                }
+                if ( p.first->left ) {
+                    S.push(pair < TreeNode*, int > (p.first->left,0));
+                }
+            }
+        }
+        return result;
+    }
+};  
+{% endhighlight %}
 
-Tramp: Waiting for prompts from remote shell
-Tramp: Sending Password
-Tramp: Sending command `exec sudo -u root -s -H -p Password:'
-Tramp: Found remote shell prompt on `lulala.local'
-Tramp: Opening connection for root@lulala.local using sudo...done
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html'...done
-(New file)
-[yas] Loading for `html-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode) (quote html-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode
-[yas] Loading for `text-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode) (quote text-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode
-[yas] Loading for `nxml-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode) (quote nxml-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Loading vc-git...done
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
-[yas] snippet expanded.
-[yas] Snippet 0 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125H5Q.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html~...done
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125UDX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125hNd.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-delete-backward-char: Text is read-only [2 times]
-completing-read-default: Command attempted to use minibuffer while in minibuffer [2 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125uXj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91257hp.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125Isv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 1 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125V21.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125HAF.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125UKL.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125hUR.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 2 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ueX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91257od.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 3 exited.
-[yas] snippet expanded.
-[yas] Snippet 4 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125Izj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125V9p.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 5 exited.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125iHw.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125vR2.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-[yas] snippet expanded.
-[yas] Snippet 6 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125hbF.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ulL.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91257vR.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125I6X.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125VEe.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125iOk.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 7 exited.
-Undo!
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125vYq.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91258iw.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125Jt2.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.912572F.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125IBM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125VLS.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125iVY.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-(No changes need to be saved)
-[yas] snippet expanded.
-[yas] Snippet 8 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125vfe.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91258pk.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125J0q.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125W-w.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125IIA.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125VSG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 9 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-call-interactively: End of buffer [6 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125icM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125vmS.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91258wY.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125J7e.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125WFl.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125jPr.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125wZx.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ijA.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125vtG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.912583M.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125JCT.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125WMZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125jWf.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125wgl.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91259qr.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125K1x.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91258-A.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125JJH.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125WTN.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125jdT.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125wnZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91259xf.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125K8l.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-[yas] snippet expanded.
-[yas] Snippet 10 exited.
-[yas] snippet expanded.
-[yas] Snippet 11 exited.
-[yas] snippet expanded.
-[yas] Snippet 12 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125XGs.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 13 exited.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125kQy.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125WaB.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-[yas] snippet expanded.
-[yas] Snippet 14 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125jkH.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125wuN.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 15 exited.
-[yas] snippet expanded.
-[yas] Snippet 16 exited.
-[yas] snippet expanded.
-[yas] Snippet 17 exited.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.912594T.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125KDa.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-[yas] snippet expanded.
-[yas] Snippet 18 exited.
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125XNg.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125kXm.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Mark set
-byte-code: Beginning of buffer [14 times]
-byte-code: End of buffer [2 times]
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125xhs.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-No match
-~/qoshiBlog 
-No match
-byte-code: Beginning of buffer [9 times]
-byte-code: End of buffer [5 times]
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125-ry.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125w1B.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 19 exited.
-Undo! [3 times]
-(No changes need to be saved)
-byte-code: End of buffer
-History item: 1
-byte-code: End of buffer
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.91259_H.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Mark set [3 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125KKO.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125XUU.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125kea.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125xog.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 20 exited.
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125-ym.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125L9s.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-byte-code: Beginning of buffer
-byte-code: End of buffer [3 times]
-Making completion list... [2 times]
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-reverse-words-in-a-string.html'...done
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-reverse-words-in-a-string.html...done
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-reverse-words-in-a-string.html'...done
-Quit
-Note: file is write protected
-byte-code: End of buffer [2 times]
-call-interactively: Buffer is read-only: #<buffer 2014-07-29-insertion-sort.html> [2 times]
-Making completion list...
-forward-sexp: Scan error: "Unbalanced parentheses", 2650, 1
-Undo! [3 times]
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html'...done
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...done
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html'...done
-byte-code: End of buffer [7 times]
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125YHz.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125KRC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-(No changes need to be saved)
-History item: 1
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125XbI.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125klO.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125xvU.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125-5a.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125LEh.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-Mark set
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125YOn.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125lYt.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-LRU-cahche.html#...done
-Auto-saving...done
-Undo!
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125yiz.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] snippet expanded.
-[yas] Snippet 21 exited.
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ksC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125x2I.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-History item: 1
-byte-code: End of buffer [3 times]
-byte-code: Beginning of buffer [4 times]
-byte-code: End of buffer [4 times]
-byte-code: Beginning of buffer [18 times]
-Quit
-Making completion list... [3 times]
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html'...done
-(New file)
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-(New file)
-[yas] snippet expanded.
-[yas] Snippet 22 exited.
-[yas] snippet expanded.
-[yas] Snippet 23 exited.
-[yas] snippet expanded.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125-AP.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125LLV.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html~...done
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125YVb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-LRU-cahche.html
-[yas] Snippet 24 exited.
-[yas] snippet expanded.
-[yas] Snippet 25 exited.
-[yas] snippet expanded.
-[yas] Snippet 26 exited.
-[yas] snippet expanded.
-[yas] Snippet 27 exited.
-[yas] snippet expanded.
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125lfh.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-[yas] Snippet 28 exited.
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ypn.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html~...done
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125_zt.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125M-z.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-[yas] snippet expanded.
-[yas] Snippet 29 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125-HD.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-byte-code: Beginning of buffer [5 times]
-[yas] Snippet 30 exited.
-byte-code: Beginning of buffer
-byte-code: End of buffer [3 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125LSJ.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125YcP.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125lmV.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Quit [3 times]
-Mark set [2 times]
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ywb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-byte-code: End of buffer [6 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125_6h.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125MFo.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ZPu.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125mZ0.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125YjD.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ltJ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125y3P.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125_BW.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125MMc.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ZWi.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125mgo.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125zqu.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125A10.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125y-D.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125_IK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125MTQ.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125ZdW.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-binary-tree-postorder-travelsal.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125mnc.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-[yas] snippet expanded.
-[yas] Snippet 31 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125zxi.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Please answer yes or no. [2 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125A8o.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-[yas] Snippet 32 exited.
-(No changes need to be saved)
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.9125NGv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-binary-tree-postorder-travelsal.html...
+</p>
