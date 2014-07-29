@@ -1,0 +1,6 @@
+---
+layout: post
+title: max point on a line
+cagegory: leetcode
+---
+<h2>{{ page.title }}</h2>

@@ -1,0 +1,8 @@
+---
+layout: post
+title: usage of YASnippet
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>What is YASnippet do?</h3>
+<p>YASnippet is a template system of Emacs.</p>

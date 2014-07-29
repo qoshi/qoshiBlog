@@ -1,0 +1,36 @@
+---
+layout: post
+title: usage of YASnippet
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>What is YASnippet do?</h3>
+<p>YASnippet is a template system of Emacs, which help those lazy guys like me who just want to write less and less but do more and more.</p>
+<h3>How to access it and install it?</h3>
+<p>
+  <a href="https://github.com/capitaomorte/yasnippet/blob/master/README.mdown">Git</a>
+  follow the guide in git and install it.
+<p>
+  <h3>Define a template for yourselef</h3>
+<p>Because when I want to write a blog using jekyll, I always required to write some thing like:
+  {% highlight linenos %}
+  ---
+  layout: post
+  title: usage of YASnippet
+  category: leetcode
+  ---
+  {% endhighlight %}
+  This is really boring and waste of time.
+</p>
+<p>
+  Steps to make own snippet.
+  <ul>
+    <li>M-x yas-new-snippet</li>
+    <li> name is just a name, type something easy to understand.</li>
+    <li>key is the "less what you should write"</li>
+    <li>below the "#---" is the "more what you want"</li>
+    <li>in YASnippet "$1","$2" mean the variables</li>
+    <li><strong>When finish editing, C-x C-s and save this in "~/wher your YASnippet/snippet/*/".</strong> And "*" is which mode you want to use this template in(html,org,cc,and so on).</li>
+  </ul>
+</p>
+
