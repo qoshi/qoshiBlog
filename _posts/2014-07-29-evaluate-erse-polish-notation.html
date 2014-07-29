@@ -1,0 +1,62 @@
+---
+layout: post
+title evaluate reverse polish notation
+category: lettcode
+---
+<h2>{{ page.title }} </h2>
+<p>
+  This problem looks cute, and not too much to talk about.
+</p>
+<h3>Some mistakes made by me.</h3>
+<ul>
+  <li>When I try to use "switch&case" in CPP, it turns to me that, switch must be int.</li>
+  <li>When the stack pop, try to figure out which is the first number and which is the second, because a/b is different from b/a.</li>
+</ul>
+<h3> solution </h3>
+<p>Useing a stack to store the numbers, and just work through the vector to get the answer.</p>
+</p>
+{% highlight cpp %}
+class Solution {
+public:
+    int evalRPN(vector<string> &tokens) {
+        int n = tokens.size();
+        if ( n == 0 ) {
+            return 0;
+        }
+        stack < int > S;
+        while ( !S.empty() ) {
+            S.pop();
+        }
+        int i = 0;
+        while ( i < n ) {
+            if ( tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/" ) {
+                int b = S.top();
+                S.pop();
+                int a = S.top();
+                S.pop();
+                S.push(clc(a,b,tokens[i]));
+            } else {
+                S.push(atoi(tokens[i].c_str()));
+            }
+            i++;
+        }
+        return S.top();
+    }
+    int clc( int a, int b, string s ) {
+        if ( s == "+" ) {
+            return a+b;
+        }
+        if ( s == "-" ) {
+            return a-b;
+        }
+        if ( s == "*" ) {
+            return a*b;
+        }
+        if ( s == "/" ) {
+            return a/b;
+        }
+    } 
+};
+{% endhighlight %}
+</p>
+
