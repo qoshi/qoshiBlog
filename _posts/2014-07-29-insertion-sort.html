@@ -1,0 +1,49 @@
+---
+layout: post
+title: inertion sort
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>easy proble</h3>
+<p>This problem is used to pratice the basic skills and it is wroth to try many times.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *insertionSortList(ListNode *head) {
+        if ( !head || !head->next ) {
+            return head;
+        }
+        ListNode* newHead = head;
+        ListNode* p = newHead;
+        ListNode* q = NULL;
+        head = head->next;
+        newHead->next = NULL;
+        while ( head ) {
+            q = head->next;
+            if ( head->val <= newHead->val ) {
+                head->next = newHead;
+                newHead = head;
+            } else {
+                p = newHead;
+                while ( p-> next && p ->next->val < head->val ) {
+                    p = p->next;
+                }
+                head->next = p->next;
+                p->next = head;
+            }
+            head = q;
+        }
+        return newHead;
+    }
+};  
+{% endhighlight %}
+
+</p>

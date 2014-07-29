@@ -1,0 +1,78 @@
+---
+layout: post
+title: LRU cache
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Most interesting thing in leetcode</h3>
+<p>
+  Design the lru cache algorithm. Three parts of this.
+  <ul>
+    <li><code>LRUcaache</code> Init the cache with the capacity.</li>
+    <li><code>get</code> Get the value if the key is legl.</li>
+    <li><code>set</code> If there is enough space, set the key with its value, else find out the lest recently used page and set the key and value.</li>
+  </ul>
+</p>
+<h3>Solution</h3>
+<p>This problem actully is asking me to create a data structure with high performance. And there are two operations in this data structure. One of them is find, we can resolve this using hashmap easily with the time complexity of O(1). The other is edit, which seems little harderto find a good way to kep the time complexity O(1). We can use a list to finish this job. When a element is visited or edited, we put it in the front of the list. As a result, the last one of the list must be the least recently used item. And we use our hashmap to save each key's position in list. The problem is resolved.</p>
+<h3>Mistakes</h3>
+<p>
+  <ul>
+    <li>Do not forget to put the element to right position when you applying the <code>get</code> function.</li>
+    <li><code>set</code> is not so easy to code, need think little more carefully.</li>
+    <li><code>vector</code>may not good enough to use, <code>list</code> is better. </li>
+  </ul>
+<h3>Code</h3>
+<p>
+{% highlight cpp linenos %}
+struct Node {
+    int key;
+    int val;
+    Node( int _key, int _val ) : key(_key), val(_val){}
+};
+
+class LRUCache{
+private:
+    int size;
+    list < Node > cache;
+    map < int , list< Node > :: iterator > cacheMap;
+public:
+    LRUCache(int capacity) {
+        cacheMap.clear();
+        cache.clear();
+        size = capacity;
+    }
+    
+    int get(int key) {
+        if ( cacheMap.find(key) == cacheMap.end() ) {
+            return -1;
+        }
+        auto i = cacheMap[key];
+        int val = i->val;
+        cache.erase(i);
+        cache.push_front(Node(key,val));
+        cacheMap[key] = cache.begin();
+        return val;
+    }
+    
+    void set(int key, int value) {
+        if ( cacheMap.find(key) == cacheMap.end() ) {
+            if ( cacheMap.size() == size ) {
+                cacheMap.erase(cache.back().key);
+                cache.pop_back();
+            }
+            cache.push_front(Node(key,value));
+            cacheMap[key] = cache.begin();
+        } else {
+            auto i = cacheMap[key];
+            cache.erase(i);
+            cache.push_front(Node(key,value));
+            cacheMap[key] = cache.begin();
+        }
+    }
+};
+
+{% endhighlight %}
+
+</p>
+</p>
