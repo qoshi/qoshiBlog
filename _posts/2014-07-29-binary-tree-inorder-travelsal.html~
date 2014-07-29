@@ -1,0 +1,6 @@
+---
+layout: post
+title: binary tree inorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>

@@ -1,0 +1,86 @@
+---
+layout: post
+title: binary tree inorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Easy problem too</h3>
+<p>Recursive way is easy, and iterative way is also not hard. Using a stack and just save the path. visited root, DFS left, come back to root, push root to the result, DFS right.</p>
+<p>
+  Recursive way
+  {% highlight cpp linenos %}
+  /**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector < int > result;
+        result.clear();
+        inOrder(root,result);
+        return result;
+    }
+    void inOrder( TreeNode* root, vector < int > &result ) {
+        if ( !root ) {
+            return;
+        }
+        inOrder(root->left,result);
+        result.push_back(root->val);
+        inOrder(root->right,result);
+    }
+};
+  {% endhighlight %}
+</p>
+<p>
+Iterative way
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector < int > result;
+        result.clear();
+        if ( !root ) {
+            return result;
+        }
+        stack < pair< TreeNode*, int > > S;
+        while( !S.empty() ) {
+            S.pop();
+        }
+        S.push( pair < TreeNode*, int > (root,0) );
+        while ( !S.empty() ) {
+            auto p = S.top();
+            S.pop();
+            if ( p.second == 1 ) {
+                result.push_back(p.first->val);
+            } else {
+                if ( p.first->right ) {
+                    S.push(pair < TreeNode*, int > (p.first->right,0));
+                }
+                S.push(pair < TreeNode*, int > (p.first,1));
+                if ( p.first->left ) {
+                    S.push(pair < TreeNode*, int > (p.first->left,0));
+                }
+            }
+        }
+        return result;
+    }
+};
+{% endhighlight %}
+
+</p>
+

@@ -1,0 +1,11 @@
+---
+layout: post
+title: binary tree inorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Easy problem too</h3>
+<p>Recursive way is easy, and iterative way is also not hard. Using a stack and just save the path. visited root, DFS left, come back to root, push root to the result, DFS right.</p>
+<p>
+  Recursive
+</p>
