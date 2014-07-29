@@ -1,0 +1,40 @@
+---
+layout: post
+title: binary tree postorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Normal problem</h3>
+<p>Easy to user recursive way to resolve this. Iterat solution is not very hard to figure out.</p>
+<h3>Recurisive one</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode *root) {
+        vector< int > result;
+        travel(root,result);
+        return result;
+    }
+    void travel( TreeNode* root, vector< int > &result ) {
+        if ( !root ) {
+            return;
+        }
+        travel(root->left,result);
+        travel(root->right,result);
+        result.push_back(root->val);
+    }
+};
+{% endhighlight %}
+</p>
+
+<>
