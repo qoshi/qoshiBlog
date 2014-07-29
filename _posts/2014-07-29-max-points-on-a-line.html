@@ -1,83 +1,508 @@
----
-layout: post
-title: max points on a line
-cagegory: leetcode
----
-<h2>{{ page.title }}</h2>
-<p>
-  This problem looks so hard.<strong>But</strong>, it seems that I have seen this some where before. Two monthes before, when we take part in the ACM campus of BUPT, There was a problem looks like this.It was asking that <strong>Is there an three points on a same line?</strong>
-</p>
-<h3>How to resolve these two questions?</h3>
-<p>These two problems looks different. But actually they are almost same qusetions. While one is asking you to figure out the existance, the other one is asking you to figure out the maxnum.</p>
-<h4>Solve the easy one first</h4>
-<p>Obviously, the existance one question is easy. Two points could determine a line, and we just need to find out is there a line appears two or more times. Hashtable is quite suit for this problems. And this problem is resolved.</p>
-<h4>Harder one seems no longer harder</h4>
-<p>Come back to this question, it could be resolved by hashtables too. And we need to enumerate each point. For this point put the lines formed with other point into a hashtable, and get the maxnum.</p>
-<h3>someting mistake I have made</h3>
-<p>
-  <ul>
-    <li>There are duplicate points.</li>
-    <li>Do not forget add the point itself.</li>
-    <li><strong>If two line have the same one point, only the k(y=kx+b) is the important thing.</strong></li>
-    <li>The max of double in CPP is 1.79769e+308</li>
-    <li>At the begining, I save every points in the hashtable, this is really suck.</li>
-  </ul>
-</p>
-<h3>code of CPP</h3>
-<p>
-{% highlight cpp linenos %}
-/**
- * Definition for a point.
- * struct Point {
- *     int x;
- *     int y;
- *     Point() : x(0), y(0) {}
- *     Point(int a, int b) : x(a), y(b) {}
- * };
- */
-class Solution {
-public:
-    int maxPoints(vector<Point> &points) {
-        int n = points.size();
-        if ( n == 0 ) {
-            return 0;
-        }
-        map < double , int > kMap;
-        kMap.clear();
-        int result = 0;
-        int same = 0;
-        for ( int i = 0; i < n; i++ ) {
-            same = 0;
-            int count = 0;
-            kMap.clear();
-            for ( int j = 0; j < n; j++ ) {
-                if ( samePoint(points[i],points[j]) ) {
-                    same++;
-                    continue;
-                }
-                double k = getK(points[i],points[j]);
-                kMap[k] += 1;
-                count = max(count,kMap[k]);
-            }
-            result = max(result,count+same);
-        }
-        return result;
-    }
-    
-    bool samePoint( Point p1, Point p2 ) {
-        return p1.x == p2.x && p1.y == p2.y;
-    }
-    
-    double getK( Point p1, Point p2 ) {
-        double x = p1.x-p2.x;
-        double y = p1.y-p2.y;
-        if ( x == 0 ) {
-            return 1.79769e+308;
-        }
-        return y/x;
-    }
-};
-{% endhighlight %}
+[yas] Discovered there was already *scratch* in fundamental-mode
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode
+Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode/.yas-setup.el (source)...done
+[yas] Prepared just-in-time loading for ~/.emacs.d/plugins/yasnippet/snippets
+[yas] Reloaded everything (snippets will load just-in-time)....
+[yas] Loading for `lisp-interaction-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode) (quote lisp-interaction-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode
+[yas] Loading for `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode
+[yas] Loading for `prog-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode) (quote prog-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode
+Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode/.yas-setup.el (source)...done
+For information about GNU Emacs and the GNU system, type C-h C-a.
+Tramp: Opening connection for root@lulala.local using sudo...
+Tramp: Sending command `exec sudo -u root -s -H -p Password:'
 
-</p>
+Tramp: Waiting for prompts from remote shell
+Tramp: Sending command `exec sudo -u root -s -H -p Password:'
+Tramp: Found remote shell prompt on `lulala.local'
+Tramp: Opening connection for root@lulala.local using sudo...done
+Making completion list...
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html'...done
+[yas] Loading for `html-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode) (quote html-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode
+[yas] Loading for `text-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode) (quote text-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode
+[yas] Loading for `nxml-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode) (quote nxml-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
 
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Loading vc-git...done
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html~...done
+basic-save-buffer-2: Wrong type argument: stringp, nil
+[yas] Snippet 0 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+basic-save-buffer-2: Wrong type argument: stringp, nil
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846h6L.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846uES.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48467OY.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+[yas] Snippet 1 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html~...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846IZe.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] snippet expanded.
+[yas] Snippet 2 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Vjk.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] snippet expanded.
+Mark set
+[yas] Snippet 3 exited.
+Undo!
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846itq.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846v3w.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846hBA.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846uLG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48467VM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846IgS.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846VqY.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Please answer yes or no.
+Quit
+[yas] Snippet 4 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846i0e.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846v-k.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48468Ir.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846JTx.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] Snippet 5 exited.
+[yas] snippet expanded.
+[yas] Snippet 6 exited.
+Mark set [2 times]
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48467cA.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+byte-code: End of buffer
+Quit
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846InG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846VxM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846i7S.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846vFZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] Snippet 7 exited.
+[yas] snippet expanded.
+[yas] Snippet 8 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48468Pf.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Making completion list...
+Quit
+[yas] Snippet 9 exited.
+Making completion list... [2 times]
+Quit
+Making completion list... [2 times]
+[yas] Loading for `snippet-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/snippet-mode) (quote snippet-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/snippet-mode
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Jal.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Wkr.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846jux.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846V4A.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] Snippet 11 exited.
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846iCH.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+[yas] snippet expanded.
+[yas] Snippet 12 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Please answer yes or no.
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846vMN.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48468WT.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846JhZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] Snippet 10 exited.
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Wrf.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+user-error: Minibuffer window is not active
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846j1l.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846w_r.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48469Jy.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846vTB.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48468dH.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846JoN.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846WyT.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846j8Z.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846wGg.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48469Qm.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Kbs.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Xly.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846JvB.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Mark set [2 times]
+byte-code: End of buffer [4 times]
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846W5H.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846jDO.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846wNU.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+~/qoshiBlog  [2 times]
+~/qoshiBlog/_posts 
+~/qoshiBlog 
+~/qoshiBlog/_posts 
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-25-max-points-on-a-line.html'...done
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-25-max-points-on-a-line.html...done
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-25-max-points-on-a-line.html'...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48469Xa.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html~...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Kig.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Xsm.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+Making completion list...
+Quit
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846k2s.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846xAz.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+~/qoshiBlog 
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846jKC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Mark set
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846wUI.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+[yas] snippet expanded.
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48469eO.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846KpU.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Xza.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-useage-of-YASnippet.html#...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846k9g.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] Snippet 14 exited.
+[yas] snippet expanded.
+[yas] Snippet 15 exited.
+[yas] snippet expanded.
+[yas] Snippet 16 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846xHn.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846-Rt.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Lcz.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.48469lC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] Snippet 17 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846KwI.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] Snippet 13 exited.
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846X6O.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-useage-of-YASnippet.html
+byte-code: End of buffer
+kill-line: End of buffer
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846kEV.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] snippet expanded.
+[yas] Snippet 18 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846xOb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846-Yh.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+[yas] Snippet 19 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Ljn.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Ytt.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846l3z.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+[yas] snippet expanded.
+[yas] Snippet 20 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846XBD.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846kLJ.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846xVP.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846-fV.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Lqb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Y0h.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846l-n.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846yIu.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846_S0.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846xcD.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846-mJ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] snippet expanded.
+[yas] Snippet 21 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846LxP.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Please answer yes or no.
+delete-backward-char: Text is read-only
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Y7V.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846lFc.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846yPi.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846_Zo.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] Snippet 22 exited.
+[yas] snippet expanded.
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Mku.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+[yas] Snippet 23 exited.
+[yas] snippet expanded.
+[yas] Snippet 24 exited.
+[yas] snippet expanded.
+[yas] Snippet 25 exited.
+[yas] snippet expanded.
+[yas] Snippet 26 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Zu0.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+(No changes need to be saved)
+[yas] snippet expanded.
+[yas] Snippet 27 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846L4D.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846YCK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] snippet expanded.
+[yas] Snippet 28 exited.
+[yas] snippet expanded.
+[yas] Snippet 29 exited.
+[yas] snippet expanded.
+[yas] Snippet 30 exited.
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846lMQ.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846yWW.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846_gc.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Mri.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Z1o.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+byte-code: End of buffer
+[yas] snippet expanded.
+[yas] Snippet 31 exited.
+[yas] snippet expanded.
+[yas] Snippet 32 exited.
+Undo! [3 times]
+[yas] snippet expanded.
+cond: Exit the snippet first! [3 times]
+[yas] Snippet 33 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846m_u.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846zJ1.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846lTE.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-29-max-points-on-a-line.html#...done
+Auto-saving...done
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846ydK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Undo!
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846_nQ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846MyW.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Z8c.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+History item: 1
+~/qoshiBlog/_posts 
+byte-code: End of buffer [2 times]
+No match [3 times]
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846mGj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+byte-code: End of buffer [3 times]
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846zQp.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+No match
+History item: 1 [2 times]
+~/qoshiBlog 
+byte-code: End of buffer [5 times]
+Mark saved where search started [2 times]
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Abv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+Mark set [2 times]
+History item: 1
+Making completion list...
+File not found and directory write-protected
+call-interactively: Buffer is read-only: #<buffer 2014-07-29-sort-list.html> [3 times]
+Quit
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html'...done
+(New file)
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...done
+(New file)
+byte-code: Beginning of buffer [7 times]
+byte-code: End of buffer [7 times]
+byte-code: Beginning of buffer [10 times]
+byte-code: End of buffer [9 times]
+byte-code: Beginning of buffer [15 times]
+byte-code: End of buffer [8 times]
+byte-code: Beginning of buffer [13 times]
+byte-code: End of buffer [8 times]
+byte-code: Beginning of buffer [14 times]
+byte-code: End of buffer [10 times]
+byte-code: Beginning of buffer [10 times]
+byte-code: End of buffer [41 times]
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4846Nl1.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-max-points-on-a-line.html
+[yas] Snippet 34 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-29-sort-list.html...

@@ -1,0 +1,88 @@
+---
+layout: post
+title: sort list
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<p>This problem is asking you to sort a list. Yes, a list, a link list. The most important thing is that we could only use O(nlog(n)) time complexity and const space complexity.</p>
+<h3>Solution</h3>
+<p>When sort a link list, merge sort is always a good way. merge sort have two key points: the fist one is two or more lists, and the second one is they are sorted. So, if we could cut the list into some lists and these lists are sorted, then we could use merge sort.</p>
+<p><strong>When the list only contain one elemet, and it is sorted.</strong>By now, we should just consider the way we merge them. And this problem the teacher told us before, if you listen to the teacher carefully. Just merge them couple and couple.</p>
+<h3>Complexiy</h3>
+<p>Using the thought of quick-sort. Each time cut the list in two part, until each part contains only one element. After that, merge them up recursively. Each recursive, it takes O(n) time complexity to figure out the middle of the list and takes O(n) time complexity to merge. And there is log(n) recursions totaly.So, the total time complexity is O(n*log(n)). And if we count the recursive stack depth, the space complexity is O(log(n)).And this is the best answer I can give.</p>
+<h3>Mistakes</h3>
+<p>
+  This problem needs two basic skills and it's worth to try many times.
+<ul>
+  <li>O(n) time complexity to get the middle of the list.</li>
+  <li>merge two lists.</li>
+</ul>
+</p>
+<h3>CPP code</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *sortList(ListNode *head) {
+        if ( !head || !head->next ) {
+            return head;
+        }
+        ListNode* fast = head->next;
+        ListNode* slow = head;
+        while( fast->next && fast->next->next ) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        fast = slow->next;
+        slow->next = NULL;
+        return merge(sortList(fast),sortList(head));
+    }
+    ListNode* merge( ListNode* h1, ListNode* h2 ) {
+        if ( !h1 ) {
+            return h2;
+        }
+        if ( !h2 ) {
+            return h1;
+        }
+        ListNode* head = NULL;
+        ListNode* p = NULL;
+        if ( h1->val > h2->val ) {
+            head = h2;
+            h2 = h2->next;
+        } else {
+            head = h1;
+            h1 = h1->next;
+        }
+        p = head;
+        while( h1 && h2 ) {
+            if ( h1->val > h2->val ) {
+                p->next = h2;
+                h2 = h2->next;
+            } else {
+                p->next = h1;
+                h1 = h1->next;
+            }
+            p = p->next;
+        }
+        if ( h1 ) {
+            p->next = h1;
+        }
+        if ( h2 ) {
+            p->next = h2;
+        }
+        return head;
+    }
+};
+{% endhighlight %}
+
+</p>
+
+
