@@ -1,0 +1,162 @@
+---
+layout: post
+title: reverse words in a String
+category: leetcode
+---
+<h2>{{ page.title }} </h2>
+<p>
+I have seen this problem somewhere else. So I knew the beset answer of this proble. Though, first page of leetcode, I will give two different answer to this question.
+</p>
+<h3>some coner cases <h3>
+<ul> 
+  <li>test cases could have leading space and suffix space</li>
+  <li>between two words there could be not only one space</li>
+</ul>
+<h3>not prefect solving</h3>
+<p>
+  Ok, reverse the wrods in a string. Words neeed to be reversed, and the letter in the words kept the origin order. So, make a stack, and push all the words in, then pop them out.
+</p>
+<p>
+{% heightlight cpp %}
+class Solution {
+public:
+void reverseWords(string &s) {
+        int sb = 0;
+        int left = 0;
+        int n = s.length();
+        int right = n-1;
+        //get ride of the leading space and suffix space
+        while( s[left] == ' ' && left < n) {
+            left++;
+        }
+        while( s[right] == ' ' && right >= 0 ) {
+            right--;
+        }
+        s = s.substr(left,right-left+1);
+        n = s.length();
+        int i = 0;
+        int j = 0;
+        int mark = 0;
+        //get ride of the extra space
+        while( i < n && j < n ) {
+            if ( s[j] != ' ' ) {
+                s[i++] = s[j++];
+                mark = 0;
+            } else {
+                if ( mark == 0 ) {
+                    mark = 1;
+                    s[i++] = s[j++];
+                } else {
+                    j++;
+                }
+            }
+        }
+        if ( i < n ) {
+            s = s.substr(0,i);
+        }
+        n = s.length();
+        left = 0;
+        right = 0;
+        stack<string > S;
+        while ( !S.empty() ) {
+            S.pop();
+        }
+        while ( left < n && right < n ) {
+            right = left+1;
+            while ( s[right] != ' ' && right < n ) {
+                right++;
+            }
+            string t = s.substr(left,right-left);
+            S.push(t);
+            left = right+1;
+        }
+        s = "";
+        if ( S.empty() ) {
+            return;
+        }
+        s += S.top();
+        S.pop();
+        while ( !S.empty() ) {
+            s += " "+S.top();
+            S.pop();
+        }
+    }
+};
+{% endhighlight %}
+</p>
+<h3>a const space complexity solution</h3>
+<p>This looks like a trick, and I just did not realize this solution at the begin. Just revese each word in the string, and then reverse the whole string. Looks cool!</p>
+<p>
+  cpp code looks not beautiful.</br>
+  {% heghlight cpp %}
+  class Solution {
+public:
+    void reverseWords(string &s) {
+        int sb = 0;
+        int left = 0;
+        int n = s.length();
+        int right = n-1;
+        while( s[left] == ' ' && left < n) {
+            left++;
+        }
+        while( s[right] == ' ' && right >= 0 ) {
+            right--;
+        }
+        s = s.substr(left,right-left+1);
+        n = s.length();
+        int i = 0;
+        int j = 0;
+        int mark = 0;
+        while( i < n && j < n ) {
+            if ( s[j] != ' ' ) {
+                s[i++] = s[j++];
+                mark = 0;
+            } else {
+                if ( mark == 0 ) {
+                    mark = 1;
+                    s[i++] = s[j++];
+                } else {
+                    j++;
+                }
+            }
+        }
+        if ( i < n ) {
+            s = s.substr(0,i);
+        }
+        n = s.length();
+        left = 0;
+        right = 0;
+        while ( left < n && right < n ) {
+            right = left+1;
+            while ( s[right] != ' ' && right < n ) {
+                right++;
+            }
+            reverse(s.begin()+left,s.begin()+right);
+            left = right+1;
+        }
+        reverse(s.begin(),s.end());
+    }
+};
+  {% endhighlight %}
+</p>
+<p>
+python code looks better.<br>
+{% highlight python %}
+class Solution:
+    # @param s, a string
+    # @return a string
+    def reverseWords(self, s):
+        t = s.split(' ')
+        n = len(t)
+        for i in range(0,n):
+            t[i] = t[i][::-1]
+        result=""
+        for i in t:
+            if ( i != '' and result == '' ):
+                result += i
+            elif( i != '' ):
+                result += ' '+i
+        result = result[::-1]
+        return result
+{% endlighlight %}
+</p>
