@@ -1,0 +1,41 @@
+---
+layout: post
+title: binary tree preorder travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>easy problem</h3>
+<p>Basic skills. Recursive way is easy. Iterative way is not hard too. DFS and push the value to the result when visiting a point at the first time.</p>
+<p>
+Recursive way.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode *root) {
+        vector < int > result;
+        result.clear();
+        preOrder(root,result);
+        return result;
+    }
+    void preOrder( TreeNode* root, vector < int >& result ) {
+        if ( !root ) {
+            return;
+        }
+        result.push_back(root->val);
+        preOrder(root->left,result);
+        preOrder(root->right,result);
+    }
+};
+{% endhighlight %}
+
+</p>
+
