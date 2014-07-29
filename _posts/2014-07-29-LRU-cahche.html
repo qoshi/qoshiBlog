@@ -35,10 +35,10 @@ struct Node {
 class LRUCache {
 private:
     int size;
-    list < Node > cache;
-    map < int , list< Node > :: iterator > cacheMap;
+    list <Node> cache;
+    map <int, list<Node> :: iterator > cacheMap;
 public:
-    LRUCache(int capacity) {
+    LRUCache( int capacity ) {
         cacheMap.clear();
         cache.clear();
         size = capacity;
