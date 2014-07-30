@@ -1,0 +1,6 @@
+---
+layout: post
+title: Amazon Inter Interview
+category: job
+---
+<h2>{{ page.title }}</h2>
