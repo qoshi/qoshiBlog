@@ -1,0 +1,6 @@
+---
+layout: post
+title: word break
+category: leetcode
+---
+<h2>{{ page.title }}</h2>

@@ -1,0 +1,122 @@
+---
+layout: post
+title: word break
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>DFS is okay?</h3>
+<p>I really like brute-force algorithm such as DFS. So I quickly write a DFS to solve this, but this got TLE...
+{% highlight cpp linenos %}
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        return dfs(0,s,dict);
+    }
+    bool dfs( int x, string s, unordered_set< string > &dict ) {
+        if ( x == s.length() ) {
+            return true;
+        }
+        int l = s.size();
+        for ( int i = 1; i <= l-x; i++ ) {
+            if ( dict.count(s.substr(x,i)) > 0 ) {
+                if ( dfs(x+i,s,dict) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>A better way</h3>
+<p>While searching, there is a lot time wasted in searching the same thing. I use mark[][] to save if the substr from i and length j is in dictionary, and this is also got TLE.T_T
+{% highlight cpp linenos %}
+class Solution {
+private:
+    int mark[1000][1000];
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        int n = s.length();
+        memset(mark,-1,sizeof(mark));
+        return dfs(0,s,dict);
+    }
+    bool dfs( int x, string s, unordered_set< string >& dict ) {
+        if ( x == s.length() ) {
+            return true;
+        }
+        int l = s.size();
+        for ( int i = 1; i <= l-x; i++ ) {
+            if ( mark[x][i] == -1 ) {
+                mark[x][i] = (dict.count(s.substr(x,i)) > 0);
+            }
+            if ( mark[x][i] == 1 ) {
+                if ( dfs(x+i,s,dict) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+{% endhighlight %}
+Because this does not save the part answer to this question, so the last answer can not be updated by some parts answer.
+</p>
+<h3>An other brute way</h3>
+<p>Cutting this problem in to pieces. If<code>s.substr(0,i)</code> and<code>s.substr(i,length-i)</code>are both break into the words, the answer is true, otherwise return false. So,recurisively do this. But, this got TLE apparently.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        if ( 0 == s.length() ) {
+            return false;
+        }
+        if ( 0 < dict.count(s) ) {
+            return true;
+        }
+        int l = s.length();
+        for ( int i = 1; i < l; i++ ) {
+            if ( wordBreak(s.substr(0,i),dict) && wordBreak(s.substr(i,l-i),dict)  ) {
+                return true;        
+            }
+        }
+        return false;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>Better Way</h3>
+<p>Recursive solution could always transfrom to dynamic programing way. If a string could be cut into words, and there must be serveral points. The substring before the point could be cut into words, and the substring after that point could be cut into words too. And we can iterate from the left to right, if the left could be cut, update each substring next to it could find in the dictionary or not.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        int l = s.length();
+        if ( 0 == l ) {
+            return false;
+        }
+        int dp[l+1];
+        memset(dp,0,sizeof(dp));
+        dp[0] = 1;
+        for ( int i = 1; i <= l; i++ ) {
+            if ( dp[i-1] ) {
+                for ( int j = i; j <= l; j++ ) {
+                    if ( dict.count(s.substr(i-1,j-i+1)) > 0 ) {
+                        dp[j] = 1;
+                    }
+                    if ( dp[l] == 1 ) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return dp[l];
+    }
+};  
+{% endhighlight %}
+
+</p>
+
+
+
+
