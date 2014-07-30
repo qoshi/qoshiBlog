@@ -1,0 +1,19 @@
+---
+layout: post
+title: reorder list
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>easy problem</h3>
+<p>A lot of problems in leetcode help us to pratice some basic skills.This problem is not hard, just cut it into three parts and solve one by one.
+<ul>
+  <li>Find the midpoint of the list.</li>
+  <li>Reverse the second half of the list.</li>
+  <li>Connect the elements one by one.</li>
+</ul>
+</p>
+<h3>code</h3>
+{% highlight cpp linenos %}
+
+{% endhighlight %}
+

@@ -1,0 +1,81 @@
+---
+layout: post
+title: reorder list
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>easy problem</h3>
+<p>A lot of problems in leetcode help us to pratice some basic skills.This problem is not hard, just cut it into three parts and solve one by one.
+<ul>
+  <li>Find the midpoint of the list.</li>
+  <li>Reverse the second half of the list.</li>
+  <li>Connect the elements one by one.</li>
+</ul>
+
+<h3>Mistakes</h3>
+<p>
+<ul>
+  <li>Finding the midpoint, mind the fast p</li>
+</ul>
+</p>
+
+<h3>code</h3>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode *head) {
+        if ( !head || !head->next || !head->next->next ) {
+            return;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while( fast->next && fast->next->next ) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        fast = slow->next;
+        slow->next = NULL;
+        slow = head;
+        ListNode* p = fast->next;
+        ListNode* q = NULL;
+        fast->next = NULL;
+        while ( p ) {
+            q = p->next;
+            p ->next = fast;
+            fast = p;
+            p = q;
+        }
+        head = slow;
+        slow = slow->next;
+        head->next = NULL;
+        p = head;
+        int i = 0;
+        while ( slow && fast ) {
+            if ( i%2 ) {
+                p->next = slow;
+                slow = slow->next;
+            } else {
+                p->next = fast;
+                fast = fast->next;
+            }
+            i++;
+            p = p->next;
+        }
+        if ( slow ) {
+            p->next = slow;
+        }
+        if ( fast ) {
+            p->next = fast;
+        }
+    }
+};
+{% endhighlight %}
+
