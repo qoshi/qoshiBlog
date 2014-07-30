@@ -1,0 +1,87 @@
+---
+layout: post
+title: linked list cycle I and II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<p>These two question I have never met before, and looks interesting.</p>
+<h3>Linked list I</h3>
+<p>A fast pointer and a slow pointer,each time the fast one walk two steps and the slow one walk one step. If there is a cycle and the the fast one will meet the slow one one.</p>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if ( !head ) {
+            return false;
+        }
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while ( fast->next && fast->next->next ) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if ( fast == slow ) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+{% endhighlight %}
+<h3>Linked list cycle II</h3>
+<p>This seems a little harder than Linked list cycleI. Assuming that, the lenth of the cycle is <code>len</code>, and when the two pointer meet, the slow one walked <code>m</code> steps, and there are <code>b</code> steps between the enterance of the cycle and the point where they meet.
+<ol>
+  <li>When the two pointer meet, the slow one walked <code>m</code> steps, and the fast one walked <code>2m</code> steps.</li>
+  <li>So <code> 2m - m = k*len </code> means the fast one walked serveral cycles.</li>
+  <li>The entrance to of the cycle is at <code>m-b</code></li>
+  <li>Now ,apparently, the head to the enterance and the meet point to the enterance are both <code>m-b</code>.</li>
+  <li>Make the slow pointer back to the head, the fast pointer stay at where they meet. This time, both of them walk one step each iteration. Finally they will meet in the enterance.</li>
+</ol>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if ( !head ) {
+            return head;
+        }
+        ListNode* fast = head;
+        ListNode* slow = head;
+        int mark = 0;
+        while ( fast->next && fast->next->next ) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if ( fast == slow ) {
+                mark = 1;
+                break;
+            }
+        }
+        if ( 0 == mark ) {
+            return NULL;
+        }
+        slow = head;
+        while ( fast != slow ) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        return fast;
+    }
+};
+{% endhighlight %}
+
+</p>
+
