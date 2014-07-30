@@ -1,503 +1,86 @@
-[yas] Discovered there was already *scratch* in fundamental-mode
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode
-Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode/.yas-setup.el (source)...done
-[yas] Prepared just-in-time loading for ~/.emacs.d/plugins/yasnippet/snippets
-[yas] Reloaded everything (snippets will load just-in-time)....
-[yas] Loading for `lisp-interaction-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode) (quote lisp-interaction-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode
-[yas] Loading for `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode
-[yas] Loading for `prog-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode) (quote prog-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode
-Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode/.yas-setup.el (source)...done
-For information about GNU Emacs and the GNU system, type C-h C-a.
-call-interactively: End of buffer
-Making completion list...
-Tramp: Opening connection for root@lulala.local using sudo...
-Tramp: Sending command `exec sudo -u root -s -H -p Password:'
+---
+layout: post
+title: linked list cycle I and II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<p>These two question I have never met before, and looks interesting.</p>
+<h3>Linked list I</h3>
+<p>A fast pointer and a slow pointer,each time the fast one walk two steps and the slow one walk one step. If there is a cycle and the the fast one will meet the slow one one.</p>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if ( !head ) {
+            return false;
+        }
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while ( fast->next && fast->next->next ) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if ( fast == slow ) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+{% endhighlight %}
+<h3>Linked list cycle II</h3>
+<p>This seems a little harder than Linked list cycleI. Assuming that, the lenth of the cycle is <code>len</code>, and when the two pointer meet, the slow one walked <code>m</code> steps, and there are <code>b</code> steps between the enterance of the cycle and the point where they meet.
+<ol>
+  <li>When the two pointer meet, the slow one walked <code>m</code> steps, and the fast one walked <code>2m</code> steps.</li>
+  <li>So <code> 2m - m = k*len </code> means the fast one walked serveral cycles.</li>
+  <li>The entrance to of the cycle is at <code>m-b</code></li>
+  <li>Now ,apparently, the head to the enterance and the meet point to the enterance are both <code>m-b</code>.</li>
+  <li>Make the slow pointer back to the head, the fast pointer stay at where they meet. This time, both of them walk one step each iteration. Finally they will meet in the enterance.</li>
+</ol>
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if ( !head ) {
+            return head;
+        }
+        ListNode* fast = head;
+        ListNode* slow = head;
+        int mark = 0;
+        while ( fast->next && fast->next->next ) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if ( fast == slow ) {
+                mark = 1;
+                break;
+            }
+        }
+        if ( 0 == mark ) {
+            return NULL;
+        }
+        slow = head;
+        while ( fast != slow ) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        return fast;
+    }
+};
+{% endhighlight %}
 
-Tramp: Waiting for prompts from remote shell
-Tramp: Sending Password
-Tramp: Sending command `exec sudo -u root -s -H -p Password:'
-Tramp: Found remote shell prompt on `lulala.local'
-Tramp: Opening connection for root@lulala.local using sudo...done
-Making completion list...
-File not found and directory write-protected
-[yas] Loading for `html-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode) (quote html-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode
-[yas] Loading for `text-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode) (quote text-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode
-[yas] Loading for `nxml-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode) (quote nxml-mode)))!
-[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
-Loading vc-git...done
-call-interactively: Buffer is read-only: #<buffer 2014-07-30-reorder-list.html> [8 times]
-Making completion list... [2 times]
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html'...done
-(New file)
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-(New file)
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-basic-save-buffer-2: Wrong type argument: stringp, nil
-[yas] Snippet 0 exited.
-[yas] snippet expanded.
-[yas] Snippet 1 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484LXc.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html~...done
-basic-save-buffer-2: Wrong type argument: stringp, nil
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Yhi.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-[yas] Snippet 2 exited.
-byte-code: End of buffer [2 times]
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484lro.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484y1u.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#...done
-Auto-saving...done
-[yas] snippet expanded.
-[yas] Snippet 3 exited.
-[yas] snippet expanded.
-[yas] Snippet 4 exited.
-[yas] snippet expanded.
-[yas] Snippet 5 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html~...done
-basic-save-buffer-2: Wrong type argument: stringp, nil
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-basic-save-buffer-2: Wrong type argument: stringp, nil
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484__0.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-[yas] Snippet 6 exited.
-[yas] snippet expanded.
-[yas] Snippet 7 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html~...done
-basic-save-buffer-2: Wrong type argument: stringp, nil
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484xJE.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-[yas] Snippet 8 exited.
-(New file) [2 times]
-delete-backward-char: Beginning of buffer [2 times]
-[yas] snippet expanded.
-[yas] Snippet 9 exited.
-Saving file /Users/lulala/Desktop/font/test.html...
-Wrote /Users/lulala/Desktop/font/test.html
-[yas] snippet expanded.
-[yas] Snippet 10 exited.
-[yas] snippet expanded.
-[yas] Snippet 11 exited.
-[yas] snippet expanded.
-[yas] Snippet 12 exited.
-[yas] snippet expanded.
-[yas] Snippet 13 exited.
-[yas] snippet expanded.
-[yas] Snippet 14 exited.
-[yas] snippet expanded.
-[yas] Snippet 15 exited.
-[yas] snippet expanded.
-Auto-saving...done
-let*: Wrong type argument: overlayp, nil
-Saving file /Users/lulala/Desktop/font/test.html...
-Wrote /Users/lulala/Desktop/font/test.html
-[yas] Snippet 16 exited.
-byte-code: Beginning of buffer [6 times]
-Mark set
-[yas] snippet expanded.
-[yas] Snippet 17 exited.
-[yas] snippet expanded.
-[yas] Snippet 18 exited.
-[yas] snippet expanded.
-[yas] Snippet 19 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html~...done
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484-TK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484LeQ.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484YoW.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#...done
-[yas] Snippet 20 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484lyc.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-~ 
-~/qoshiBlog 
-No match
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484y8i.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-reorder-list.html#...done
-Auto-saving...done
-[yas] Snippet 21 exited.
-byte-code: End of buffer
-byte-code: Beginning of buffer [7 times]
-byte-code: End of buffer [4 times]
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484_Gp.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-reorder-list.html
-(No changes need to be saved)
-History item: 1
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html'...done
-(New file)
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-(New file)
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484MRv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 22 exited.
-[yas] snippet expanded.
-[yas] Snippet 23 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html~...done
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Zb1.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 24 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484LlE.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Quit
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484YvK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484l5Q.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484yDX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-cond: Exit the snippet first!
-[yas] Snippet 25 exited.
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484_Nd.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484MYj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Zip.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484msv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484z21.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Quit
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484lAF.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484yKL.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484_UR.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484MfX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-[yas] Snippet 26 exited.
-Mark set
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Zpd.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Mark set
-[yas] Snippet 27 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484mzj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Mark set
-kill-line: End of buffer
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484z9p.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484AIw.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484NS2.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484_bF.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484MmL.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484ZwR.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484m6X.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-byte-code: End of buffer [2 times]
-[yas] Snippet 28 exited.
-[yas] snippet expanded.
-[yas] Snippet 29 exited.
-[yas] snippet expanded.
-[yas] Snippet 30 exited.
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484zEe.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Auto-saving...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484APk.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-[yas] Snippet 31 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484NZq.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484ajw.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484nt2.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Z3F.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484mBM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-[yas] Snippet 32 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484zLS.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-[yas] Snippet 33 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484AWY.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Nge.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484aqk.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-[yas] Snippet 34 exited.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484n0q.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4840-w.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-[yas] snippet expanded.
-[yas] Snippet 35 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484mIA.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-[yas] Snippet 36 exited.
-[yas] snippet expanded.
-[yas] Snippet 37 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484zSG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484AdM.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 38 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484NnS.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484axY.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484n7e.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4840Fl.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Auto-saving...done
-Quit
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484BQr.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Oax.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484AkA.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484NuG.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484a4M.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 39 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484nCT.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4840MZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484BXf.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Ohl.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484brr.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484o1x.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 40 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484a_A.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 41 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484nJH.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4840TN.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484BeT.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484OoZ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484byf.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484o8l.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Auto-saving...done
-[yas] Snippet 42 exited.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4841Gs.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484CRy.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4840aB.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] snippet expanded.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484BlH.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484OvN.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484b5T.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-call-interactively: Text is read-only [3 times]
-Quit
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484oDa.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4841Ng.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484CYm.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Pis.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-byte-code: End of buffer
-completing-read-default: Command attempted to use minibuffer while in minibuffer
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484csy.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-[yas] Snippet 43 exited.
-[yas] snippet expanded.
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484O2B.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#
-tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
-Auto-saving...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484bAI.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-07-30-link-list-cycle.html#...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484oKO.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-[yas] Snippet 44 exited.
-[yas] snippet expanded.
-[yas] Snippet 45 exited.
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.4841UU.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Cfa.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484Ppg.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-(No changes need to be saved)
-[yas] Snippet 46 exited.
-Mark set
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...
-Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.484czm.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html...done
-Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-link-list-cycle.html
-History item: 1
-byte-code: Beginning of buffer [9 times]
-byte-code: Text is read-only: #<buffer  *Minibuf-1*>
-call-interactively: Text is read-only
-delete-backward-char: Text is read-only
-call-interactively: Text is read-only [2 times]
-delete-backward-char: Text is read-only
-Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-amazon-inter-interviw.html'...done
-(New file)
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-amazon-inter-interviw.html...done
-(New file)
-[yas] snippet expanded.
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-amazon-inter-interviw.html...
-
-Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-amazon-inter-interviw.html...done
-Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-07-30-amazon-inter-interviw.html...
+</p>
