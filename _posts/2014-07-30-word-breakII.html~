@@ -1,0 +1,10 @@
+---
+layout: post
+title: word breakII
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>This is harder...</h3>
+<p>Is this problem really harder? After solved the word break, we can cut this problem into two pieces. The first one is figure out how many ways to break the strig and the second one is get the result out.</p>
+<h3>How many ways</h3>
+<p>Assuming that dp[i][j] means the solutions substringi to j.Because we want to get dp[0][l](l stants for the lentgh of string s), so we nede update matrix dp from right to left and bottom to top.</p>
