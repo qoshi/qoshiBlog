@@ -1,0 +1,49 @@
+---
+layout: post
+title: gas station
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Not hard</h3>
+<p>Tank can start at every position in the cycle, but each step it must maintain the gas >= 0. We call <code>gas[i]-cost[i] = delta[i]</code>. Tank must start at where delta[start] >= 0. Then, use a pointer named end to go around. if the gas in tank less than zero, tank should not start during[start,end].Try to start at end+1, iterate. if end<=start, and remaining gas less than zero, there is no start point.
+{% highlight cpp linenos }
+class Solution {
+public:
+    int canCompleteCircuit(vector<int> &gas, vector<int> &cost) {
+        int l = gas.size();
+        if ( l != cost.size() ) {
+            return -1;
+        }
+        if ( l == 0 ) {
+            return -1;
+        }
+        int start = 0;
+        int sum = 0;
+        int end = 0;
+        while( start < l ) {
+            if ( gas[start] < cost[start] ) {
+                start++;
+            } else {
+                sum = gas[start]-cost[start];
+                end = (start+1)%l;
+                while ( end != start && sum >= 0 ) {
+                    sum += gas[end]-cost[end];
+                    end = (end+1)%l;
+                }
+                if ( sum >= 0 ) {
+                    return start;
+                } else {
+                    if ( end <= start ) {
+                        return -1;
+                    } else {
+                        start = end;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+{% endhighlight %}
+
+</p>
