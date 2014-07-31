@@ -1,0 +1,43 @@
+---
+layout: post
+title: clone graph
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>DFS I like</h3>
+<p>I resolved a lot of problems in leetcode using DFS, which is my favourite. Using a map to record the pair of (label,UndirectedGraphNode*), which means whether we have created a node of label x or not. DFS originNode, if there is a newNode in map and the newNode has the same label with the originNode, return the pointer. Otherwise, create a new node, put it into map and DFS to create the neighbor with it using the originNode's neighbor list.
+{% highlight cpp linenos %}
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+private:
+map < int, UndirectedGraphNode* > visited;
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        visited.clear();
+        return DFS(node);
+    }
+    UndirectedGraphNode *DFS( UndirectedGraphNode *originNode ) {
+        if ( !originNode ) {
+            return NULL;
+        }
+        if ( visited.find(originNode->label) != visited.end() ) {
+            return visited[originNode->label];
+        }
+        UndirectedGraphNode* newNode = new UndirectedGraphNode(originNode->label);
+        visited[originNode->label] = newNode;
+        for ( auto i = originNode->neighbors.begin(); i != originNode->neighbors.end(); i++ ) {
+            newNode->neighbors.push_back(DFS(*i));
+        }
+        return newNode;
+    }
+};  
+{% endhighlight %}
+</p>
+
