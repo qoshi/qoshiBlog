@@ -1,6 +1,55 @@
 ---
 layout: post
-title: 1.Title
+title: palindrome partitioningII
 category: leetcode
 ---
 <h2>{{ page.title }}</h2>
+<h3>DP</h3>
+<p><code>dp[i]</code> stand <code>s.substr(0,i-1)</code>'s minum cut. dp[i] is the minnum of three values. 
+<ul>
+  <li><code>i-1</code></li>
+  <li><code>dp[i-1]+1</code></li>
+  <li><code>dp[j-1]+1</code>substring from j-1 to i-1 is palindrome</li>
+</ul>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int minCut(string s) {
+        int l = s.length();
+        int dp[l+1];
+        dp[0] = -1;
+        for ( int i = 1; i <= l; i++ ) {
+            dp[i] = i-1;
+        }
+        for ( int i = 1; i <= l ; i++ ) {
+            int j = min(i,l-i+1)-1;
+            int k = 1;
+            dp[i] = min(dp[i],dp[i-1]+1);
+            while ( k <= j ) {
+                if ( s[i-1-k] == s[i+k-1] ) {
+                    dp[i+k] = min(dp[i+k],dp[i-k-1]+1);
+                } else {
+                    break;
+                }
+                k++;
+            }
+            j = min(i,l-i)-1;
+            k = 0;
+            while ( k <= j ) {
+                if ( s[i-1-k] == s[i+k] ) {
+                    dp[i+k+1] = min(dp[i+k+1],dp[i-k-1]+1);
+                } else {
+                    break;
+                }
+                k++;
+            }
+        }
+        return dp[l];
+    }
+};
+{% endhighlight %}
+</p>
+<p>
+This code maybe a little hard to understand. <code>i</code> means the middle of the substring. <code>j</code> means the max length from the middle.
+</p>
+
