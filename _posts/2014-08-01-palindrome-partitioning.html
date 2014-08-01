@@ -1,0 +1,105 @@
+---
+layout: post
+title: palindrome partitioning
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Brute-force DFS</h3>
+<p>Enumerate every substring in string s, if it's a palindrome, dfs the rest string. If we get the end of the string, push the list back to the result.
+{% highlight cpp linenos %}
+class Solution {
+private:
+vector< vector < string > > result;
+public:
+    vector<vector<string>> partition(string s) {
+        result.clear();
+        vector< string > v;
+        DFS(s,0,v);
+        return result;
+    }
+    void DFS( string s, int start, vector< string >& v ) {
+        int l = s.length();
+        if ( start == l ) {
+            result.push_back(v);
+            return;
+        }
+        for ( int i = start; i < l; i++ ) {
+            string sub = s.substr(start,i-start+1);
+            if ( isPalindrome(sub) ) {
+                v.push_back(sub);
+                DFS(s,i+1,v);
+                v.pop_back();
+            }
+        }
+    }
+    bool isPalindrome(string s) {
+        int l = s.length();
+        for ( int i = 0; i < (l+1)/2; i++ ) {
+            if ( s[i] != s[l-1-i] ) {
+                return false;
+            }
+        }
+        return true;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>Better way</h3>
+<p>Using spcae to save the time.<code>dp[i][j]</code> means wheter the string between i and j is palindrome. Then DFS.
+{% highlight cpp linenos %}
+class Solution {
+private:
+    vector< vector < string > > result;
+    int dp[1000][1000];
+public:
+    vector<vector<string>> partition(string s) {
+        result.clear();
+        memset(dp,0,sizeof(dp));
+        DP(s);
+        vector< string > t;
+        DFS(s,0,t);
+        return result;
+    }
+    void DP( string s ) {
+        int l = s.length();
+        for ( int i = 0; i < l; i++ ) {
+            dp[i][i] = 1;
+            int j = min(i,l-1-i);
+            int k = 1;
+            while ( k <= j ) {
+                if ( s[i-k] == s[i+k] ) {
+                    dp[i-k][i+k] = 1;
+                } else {
+                    break;
+                }
+                k++;
+            }
+            j = min(i,l-2-i);
+            k = 0;
+            while ( k <= j ) {
+                if ( s[i-k] == s[i+1+k] ) {
+                    dp[i-k][i+k+1] = 1;
+                } else {
+                    break;
+                }
+                k++;
+            }
+        }
+    }
+    void DFS( string s, int x, vector< string >& v ) {
+        int l = s.length();
+        if ( l == x ) {
+            result.push_back(v);
+            return;
+        }
+        for ( int i = x; i < l; i++ ) {
+            if ( dp[x][i] ) {
+                v.push_back(s.substr(x,i-x+1));
+                DFS(s,i+1,v);
+                v.pop_back();
+            }
+        }
+    }
+};  
+{% endhighlight %}
+</p>

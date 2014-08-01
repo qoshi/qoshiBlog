@@ -1,0 +1,6 @@
+---
+layout: post
+title: palindrome partitioning
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
