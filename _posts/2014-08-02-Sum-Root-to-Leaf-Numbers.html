@@ -1,0 +1,47 @@
+---
+layout: post
+title: sum root to leaf numbers
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>DFS</h3>
+<p>DFS helps me resolve nearly half of the questions in leetcode.Using <code>result</code> to save the numbers when we reach the leaf. if we did not reach the leaf make current value 10 times and plus the current nood's value, then DFS it's left and right child if it has one.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+int result;
+public:
+    int sumNumbers(TreeNode *root) {
+        result = 0;
+        if ( !root ) {
+            return result;
+        }
+        DFS(root,0);
+        return result;
+    }
+    void DFS( TreeNode* root, int val ) {
+        val *= 10;
+        val += root->val;
+        if ( !root->left && !root->right ) {
+            result += val;
+            return;
+        }
+        if ( root->left) {
+            DFS(root->left,val);
+        }
+        if ( root->right ) {
+            DFS(root->right,val);
+        }
+    }
+};
+{% endhighlight %}
+</p>
