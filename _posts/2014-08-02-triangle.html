@@ -6,6 +6,7 @@ category: leetcode
 <h2>{{ page.title }}</h2>
 <h3>DP</h3>
 <p>dp[i][j] means the minnum value in position i,j
+{% highlight cpp linenos %}
   class Solution {
 public:
     int minimumTotal(vector<vector<int> > &triangle) {
@@ -34,6 +35,7 @@ public:
         return result;
     }
 };
+{% endhighlight %}
 </p>
 <h3>Space time complexity saved</h3>
 <p>We can only use O(n) spae time complexity to resolve this problem. The previous problem show that after updating the level i, level i-1 become useless.

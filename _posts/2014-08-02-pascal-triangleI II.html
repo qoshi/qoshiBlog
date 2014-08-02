@@ -1,0 +1,61 @@
+---
+layout: post
+title: pascal's triangle I II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I easy problem</h3>
+<p>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    vector<vector<int> > generate(int numRows) {
+        vector< vector< int > > result;
+        result.clear();
+        if ( 0 == numRows ) {
+            return result;
+        }
+        vector< int > t;
+        t.push_back(1);
+        result.push_back(t);
+        for ( int i = 1; i < numRows; i++ ) {
+            t.clear();
+            t.push_back(1);
+            for ( int j = 1; j <= i-1; j++ ) {
+                t.push_back(result[i-1][j-1]+result[i-1][j]);
+            }
+            t.push_back(1);
+            result.push_back(t);
+        }
+        return result;
+    }
+};
+{% endhighlight %}
+</p>
+<h3>II not hard too</h3>
+<p>Time complexity O(n*n), and sapce complexity O(n). <strong>It is rowIndex, not rowNumber...</strong>
+  {% highlight cpp linenos %}
+  class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int > result;
+        result.clear();
+        if ( 0 > rowIndex )  {
+            return result;
+        }
+        result.push_back(1);
+        for ( int i = 1; i <= rowIndex; i++ ) {
+            int pre = result[0];
+            for ( int j = 1; j < i; j++ ) {
+                int t = result[j];
+                result[j] += pre;
+                pre = t;
+            }
+            result.push_back(1);
+        }
+        return result;
+    }
+};
+{% endhighlight %}
+</p>
+
