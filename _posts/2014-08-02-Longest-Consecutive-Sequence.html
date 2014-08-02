@@ -1,0 +1,47 @@
+---
+layout: post
+title: longest consecutive sequence
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Seems hard</h3>
+<p>This problem looks hard, and I did not find any pretty solutions. The book 《creaking the coding interview》has a famous saying:"heashtable may help you.". Put all element in a map, then for each in the vector figure out the left an d right length. When search left and right element, we can erase the element which already searched by us, and this limited the time complexity to O(n).
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        int n = num.size();
+        if ( 0 == n ) {
+            return 0;
+        }
+        map< int, int > numMap;
+        for ( int i = 0; i < n; i++ ) {
+            numMap[num[i]] = 1;
+        }
+        int result = 0;
+        for ( int i = 0; i < n; i++ ) {
+            int t = num[i];
+            int now = 0;
+            if ( numMap.find(t) != numMap.end() ) {
+                numMap.erase(t);
+                now = 1;
+                int left = t-1;
+                while( numMap.find(left) != numMap.end() ) {
+                    numMap.erase(left);
+                    left--;
+                    now++;
+                }
+                int right = t+1;
+                while ( numMap.find(right) != numMap.end() ) {
+                    numMap.erase(right);
+                    right++;
+                    now++;
+                }
+            }
+            result = max(result,now);
+        }
+        return result;
+    }
+};  
+{% endhighlight %}
+</p>
