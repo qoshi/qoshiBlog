@@ -1,0 +1,44 @@
+---
+layout: post
+title: valid palindrome
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Not hard</h3>
+<p>put the string all to left, change the upcase to lowcase. Numbers stay and ignore theothers.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int l = s.length();
+        if ( 0 == l ) {
+            return true;
+        }
+        int i = 0;
+        int j = 0;
+        while ( i < l ) {
+            if ( ( s[i] >= 'a' && s[i] <= 'z' ) || ( s[i] >= '0' && s[i] <= '9' ) ) {
+                s[j++] = s[i++];
+            } else {
+                if ( s[i] >= 'A' && s[i] <= 'Z' ) {
+                    s[j++] = s[i++]-'A'+'a';
+                }
+                else {
+                    i++;
+                }
+            }
+        }
+        i = j-1;
+        j = 0;
+        while ( j <= i ) {
+            if ( s[i] != s[j] ) {
+                return false;
+            }
+            i--;
+            j++;
+        }
+        return true;
+     }
+};
+{% endhighlight %}
+</p>

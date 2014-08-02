@@ -1,0 +1,8 @@
+---
+layout: post
+title: best time to buy and sell stockI&II&III
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I</h3>
+<p>Only can buy one time. Go through the vector, update the minnum value and result.</p>
