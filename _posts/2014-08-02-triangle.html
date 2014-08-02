@@ -1,0 +1,77 @@
+---
+layout: post
+title: triangle
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>DP</h3>
+<p>dp[i][j] means the minnum value in position i,j
+  class Solution {
+public:
+    int minimumTotal(vector<vector<int> > &triangle) {
+        int n = triangle.size();
+        if ( 0 == n ) {
+            return 0;
+        }
+        int dp[n][n];
+        memset(dp,0,sizeof(dp));
+        dp[0][0] = triangle[0][0];
+        for ( int i = 1; i < n; i++ ) {
+            for ( int j = 0; j <= i; j++ ) {
+                if ( 0 == j ) {
+                    dp[i][j] = dp[i-1][j]+triangle[i][j];
+                } else if ( j == i ) {
+                    dp[i][j] = dp[i-1][j-1]+triangle[i][j];
+                } else {
+                    dp[i][j] = min(dp[i-1][j-1],dp[i-1][j])+triangle[i][j];
+                }
+            }
+        }
+        int result = dp[n-1][0];
+        for ( int i = 1; i < n; i++ ) {
+            result = min(dp[n-1][i],result);
+        }
+        return result;
+    }
+};
+</p>
+<h3>Space time complexity saved</h3>
+<p>We can only use O(n) spae time complexity to resolve this problem. The previous problem show that after updating the level i, level i-1 become useless.
+{% highlight cpp linenos %}
+  class Solution {
+public:
+    int minimumTotal(vector<vector<int> > &triangle) {
+        int n = triangle.size();
+        if ( 0 == n ) {
+            return 0;
+        }
+        int dp[n];
+        memset(dp,0,sizeof(dp));
+        dp[0] = triangle[0][0];
+        for ( int i = 1; i < n; i++ ) {
+            int pre = dp[0];
+            for ( int j = 0; j <= i; j++ ) {
+                if ( 0 == j ) {
+                    dp[j] += triangle[i][j];
+                } else if ( j == i ) {
+                    dp[j] = pre+triangle[i][j];
+                } else {
+                    int t = dp[j];
+                    dp[j] = min(pre,dp[j])+triangle[i][j];
+                    pre = t;
+                }
+            }
+        }
+        int result = dp[0];
+        for ( int i = 1; i < n; i++ ) {
+            result = min(dp[i],result);
+        }
+        return result;
+    }
+};
+{% endhighlight %}
+</p>
+<p>
+  <strong>Attention!</strong>When j is nether equal to 0 or i, we can not use<code>dp[j-1]-triangle[i][j-1]</code> to update <code>dp[j]</code>, because <code>dp[j-1]</code> maybe updated by<code>dp[j-2]</code>.
+</p>
+
