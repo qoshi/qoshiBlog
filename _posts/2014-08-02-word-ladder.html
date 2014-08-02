@@ -1,0 +1,49 @@
+---
+layout: post
+title: word ladder
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Search again</h3>
+<p>I have done a lot of stupid things of this problem. First, I using O(n*n) time complexity to build the map and I got TLE. After I try a lot to make my searching algorithm faster and faster. Afther a lot times try, I found it is the map building already TLE....</p>
+<p><strong>Do not need to build the map</strong>, while searching, try to change each char of the current string. If the new string is in the set, search the new string. Because there may be cycles in the "map", and we only need the minnum steps, so the first we reach a point just delete the string from the map. The time to erase the string my affact the time. First time, I erase the string when popout, I got TLE. Then I change it to when I push it into the quee, I gout AC.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int ladderLength(string start, string end, unordered_set<string> &dict) {
+        queue< pair< string, int > > Q;
+        while ( !Q.empty() ) {
+            Q.pop();
+        }
+        dict.insert(end);
+        pair< string, int > p(start,1);
+        Q.push(p);
+        while ( !Q.empty() ) {
+            auto t = Q.front();
+            Q.pop();
+            string str = t.first;
+            int step = t.second;
+            if ( str == end ) {
+                return step;
+            }
+            string next = str;
+            int l = str.length();
+            for ( int i = 0; i < l; i++ ) {
+                for ( char j = 'a'; j <= 'z'; j++ ) {
+                    if ( next[i] != j ) {
+                        next[i] = j;
+                        if ( dict.count(next) > 0 ) {
+                            pair< string, int > p(next,step+1);
+                            Q.push(p);
+                            dict.erase(next);
+                        }
+                        next = str;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+};
+{% endhighlight %}
+</p>
