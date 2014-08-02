@@ -1,0 +1,108 @@
+---
+layout: post
+title: surrounded regions
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Search</h3>
+<p>The problm ask us to put all 'O'(big orange not zero) to 'X' if the region of 'O's is durrounded by 'X' in all four directions. Those regions would not be changed to 'X' must connect to on edge of the matrix. So search each edge and if it is 'O' then mark those points connect to this with DFS or BFS. Then change the rest 'O' to 'X', change the marked region to 'O'.
+{% highlight cpp linenos %}
+  class Solution {
+private:
+    int visited[1000][1000];
+    int deltaX[4] = {-1,1,0,0};
+    int deltaY[4] = {0,0,-1,1};
+    int n;
+    int m;
+public:
+    void solve(vector<vector<char>> &board) {
+        memset(visited,0,sizeof(visited));
+        n = board.size();
+        if ( !n ) {
+            return;
+        }
+        m = board[0].size();
+        if ( !m ) {
+            return;
+        }
+        queue< pair<int, int> > Q; 
+        while ( !Q.empty() ) {
+            Q.pop();
+        }
+        for ( int i = 0; i < n; i++ ) {
+            if ( 'O' == board[i][0] ) {
+                visited[i][0] = 1;
+                pair < int , int > p(i,0);
+                Q.push(p);
+            }
+            if ( 'O' == board[i][m-1] ) {
+                visited[i][m-1] = 1;
+                pair < int , int > p(i,m-1);
+                Q.push(p);
+            }
+        }
+        for ( int i = 0; i < m; i++ ) {
+            if ( 'O' == board[0][i] ) {
+                visited[0][i] = 1;
+                pair < int , int > p(0,i);
+                Q.push(p);
+            }
+            if ( 'O' == board[n-1][i] ) {
+                visited[n-1][i] = 1;
+                pair < int , int > p(n-1,i);
+                Q.push(p);
+            }
+        }
+        while( !Q.empty() ) {
+            auto t = Q.front();
+            Q.pop();
+            int x = t.first;
+            int y = t.second;
+            board[x][y] = '*';
+            for ( int i = 0; i < 4; i++ ) {
+                int newX = x + deltaX[i];
+                int newY = y + deltaY[i];
+                pair< int, int > p(newX,newY);
+                if ( isVisitable(newX,newY,board) ) {
+                    visited[newX][newY] = 1;
+                    Q.push(p);
+                }
+            }
+        }
+        for ( int i = 0; i < n; i++ ) {
+            for ( int j = 0; j < m; j++ ) {
+                if ( 'O' == board[i][j] ) {
+                    board[i][j] = 'X';
+                }
+                if ( '*' == board[i][j] ) {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
+    bool isVisitable( int x, int y, vector< vector <char> >& board ) {
+        if ( x < 0 || x >= n ) {
+            return false;
+        }
+        if ( y < 0 || y >= m ) {
+            return false;
+        }
+        if ( 'O' != board[x][y] ) {
+            return false;
+        }
+        if ( 1 == visited[x][y] ) {
+            return false;
+        }
+        return true;
+    }
+};
+{% endhighlight %}
+</p>
+<h3>Mistakes</h3>
+<p>
+  <ul>
+    <li>'O' is not '0'.</li>
+    <li>When need to take matrix as argument, use &.</li>
+  </ul>
+</p>
+
