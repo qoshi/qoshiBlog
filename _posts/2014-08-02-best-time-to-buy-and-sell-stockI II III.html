@@ -29,4 +29,70 @@ public:
 {% endhighlight %}
 </p>
 <h3>II</h3>
-<p></p>
+<p>This description is really terrible. After looking around I finally know the meaning. You must sell the stock before you buy. You can both sell and buy in the same day. It seemes easier then I. If the price is higher than yeseterday, sell and buy a new one. Otherwise, we do not buy yesterday.
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        int n = prices.size();
+        if ( n < 2 ) {
+            return 0;
+        }
+        int result = 0;
+        int now = prices[0];
+        for ( int i = 1; i < n; i++ ) {
+            if ( now < prices[i] ) {
+                result += prices[i]-now;
+            }
+            now = prices[i];
+        }
+        return result;
+    }
+};
+</p>
+<h3>III</h3>
+<p>After look around, I know this meaning. We can buy two times and sell two time, but in our hand there should be only one stack. This problem seems harder than both two before. Simplify this problem into two problems. Because we can only hold one stack, it means we need find a day. Before that day we need finish buy and sell once or zero, and after that day we need finish buy and sell once or zero. Sum the max profit before that day and after that day, and find the max value day.</p>
+<p>
+<ul>
+  <li>First problem, find the max profit(one transaction) before each day.</li>
+  <li>Second problem, find the max profit(one transaction) after each day.</li>
+  <li>Third problem find the maxprofit day.</li>
+</ul>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        int n = prices.size();
+        if ( n < 2 ) {
+            return 0;
+        }
+        int result = 0;
+        int left[n];
+        int right[n];
+        left[0] = 0;
+        int now = prices[0];
+        for ( int i = 1; i < n; i++ ) {
+            if ( prices[i] > now ) {
+                left[i] = max(prices[i] - now,left[i-1]);
+            } else {
+                left[i] = left[i-1];
+                now = prices[i];
+            }
+        }
+        right[n-1] = 0;
+        now = prices[n-1];
+        for ( int i = n-2; i >= 0; i-- ) {
+            if ( prices[i] < now ) {
+                right[i] = max(now-prices[i],right[i+1]);
+            } else {
+                right[i] = right[i+1];
+                now = prices[i];
+            }
+        }
+        for ( int i = 0; i < n; i++ ) {
+            result = max(result,left[i]+right[i]);
+        }
+        return result;
+    }
+};
+{% endhighlight %}
+</p>
