@@ -1,0 +1,55 @@
+---
+layout: post
+title: binary tree maxnum path sum
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Search</h3>
+<p>Using result to keep the max value of the path. When search to a node, result = maxnum of these:
+  <ul>
+    <li>result</li>
+    <li><code>node->val</code></li>
+    <li><code>node->val</code>+ the path sum of node's left child.</li>
+    <li><code>node->val</code>+ the path sum of node's right child.</li>
+    <li><code>node->val</code>+ the path sum of both node's left and right child.</li>
+  </ul>
+  Using a function to caculate the max path with the node argument, at the same time uptate the result.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    int result;
+public:
+    int maxPathSum(TreeNode *root) {
+        result = root->val;
+        connectPath(root);
+        return result;
+    }
+    int connectPath( TreeNode* root ) {
+        if ( !root ) {
+            return 0;
+        }
+        int val = root->val;
+        result = max(result,val);
+        int left = connectPath(root->left);
+        int right = connectPath(root->right);
+        if ( left > 0 ) {
+            val += left;
+        }
+        if ( right > 0 ) {
+            val += right;
+        }
+        result = max(result,val);
+        return max(left,right) > 0 ? max(left,right)+root->val : root->val;
+    }
+};  
+{% endhighlight %}
+</p>
