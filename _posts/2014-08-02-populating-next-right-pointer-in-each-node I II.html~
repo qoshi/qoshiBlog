@@ -1,0 +1,6 @@
+---
+layout: post
+title: populating next right pointer in each node I II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>

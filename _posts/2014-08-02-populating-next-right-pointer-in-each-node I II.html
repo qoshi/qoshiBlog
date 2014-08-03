@@ -1,0 +1,78 @@
+---
+layout: post
+title: populating next right pointer in each node I II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I easy problem</h3>
+<p>This is not hard, because it is a full binary tree.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        if ( !root ) {
+            return;
+        }
+        if ( root->left ) {
+            root->left->next = root->right;
+        }
+        if ( root->right ) {
+            if ( root->next ) {
+                root->right->next = root->next->left;
+            }
+        }
+        connect(root->left);
+        connect(root->right);
+    }
+};
+{% endhighlight %}
+</p>
+<h3>II a little hard</h3>
+<p>I was trying to resolve this problem by recursive way, but I failed. This problem should be resolved by level travel the tree.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        if ( !root ) {
+            return;
+        }
+        queue < pair< TreeLinkNode*, int > > Q;
+        while ( !Q.empty() ) {
+            Q.pop();
+        }
+        Q.push(pair< TreeLinkNode*, int >(root,0));
+        while ( !Q.empty() ) {
+            auto p = Q.front();
+            Q.pop();
+            if ( Q.empty() || p.second != Q.front().second ) {
+                p.first->next = NULL;
+            } else {
+                p.first->next = Q.front().first;
+            }
+            if ( p.first->left ) {
+                Q.push(pair < TreeLinkNode*, int >(p.first->left,p.second+1));
+            }
+            if ( p.first->right ) {
+                Q.push(pair < TreeLinkNode*, int >(p.first->right,p.second+1));
+            }
+        }
+    }
+};  
+{% endhighlight %}
+</p>
