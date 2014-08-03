@@ -1,0 +1,50 @@
+---
+layout: post
+title: balanced binary tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>DFS</h3>
+<p>If a node is balanced, it must satisfy the follow condition.
+<ul>
+  <li>Both its left and right children must be balanced.</li>
+  <li>The hight difference between two children must be at most one.</li>
+</ul>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode *root) {
+        if ( !root ) {
+            return true;
+        }
+        if ( !isBalanced(root->left) || !isBalanced(root->right) ) {
+            return false;
+        }
+        int l = height(root->left);
+        int r = height(root->right);
+        if ( l-r > 1 || l-r< -1 ) {
+            return false;
+        }
+        return true;
+    }
+    int height( TreeNode* root ) {
+        if ( !root ) {
+            return 0;
+        }
+        int l = height(root->left);
+        int r = height(root->right);
+        return max(l,r)+1;
+    }
+};
+{% endhighlight %}
+
+</p>

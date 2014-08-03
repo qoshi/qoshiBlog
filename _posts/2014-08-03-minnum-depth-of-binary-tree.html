@@ -1,0 +1,37 @@
+---
+layout: post
+title: minnum depthe of binary tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Logic is important</h3>
+<p>{% highlight cpp linenos %}
+  /**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode *root) {
+        if ( !root ) {
+            return 0;
+        }
+        if ( root->left && root->right ) {
+            return min(minDepth(root->left),minDepth(root->right))+1;
+        }
+        if ( root->left ) {
+            return minDepth(root->left)+1;
+        }
+        if ( root->right ) {
+            return minDepth(root->right)+1;
+        }
+        return 1;
+    }
+};
+  {% endhighlight %}
+</p>
