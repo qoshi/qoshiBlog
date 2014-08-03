@@ -1,0 +1,27 @@
+---
+layout: post
+title: maxnum depth of binary tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>The most simple one</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode *root) {
+        return !root ? 0:max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+};
+{% endhighlight %}
+
+</p>

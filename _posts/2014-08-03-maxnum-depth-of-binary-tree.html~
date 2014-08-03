@@ -1,0 +1,7 @@
+---
+layout: post
+title: maxnum depth of binary tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>The most simple one</h3>
