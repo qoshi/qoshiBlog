@@ -1,0 +1,46 @@
+---
+layout: post
+title: flatten binary tree to linked list
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Recursive </h3>
+<p>For each node, flat its left child and flat its right child. If left child exsits, put it to right, and connect right child. Otherwise, keep the right stay on site.<strong>When change the left, set NULL!</strong>
+  {% highlight cpp linenos %}
+  /**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode *root) {
+        root = build(root);
+    }
+    TreeNode* build( TreeNode* root ) {
+        if ( !root ) {
+            return NULL;
+        }
+        TreeNode* left = build(root->left);
+        TreeNode* right = build(root->right);
+        if ( left ) {
+            root->right = left;
+            TreeNode* p = root->right;
+            while( p->right ) {
+                p = p->right;
+            }
+            p->right = right;
+        } else {
+            root->right = right;
+        }
+        root->left = NULL;
+        return root;
+    }
+};
+  {% endhighlight %}
+
+</p>
