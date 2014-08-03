@@ -1,0 +1,106 @@
+---
+layout: post
+title: binary tree level order travelsal I II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I Not hard</h3>
+<p>Mind if root is NULL!
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int> > levelOrder(TreeNode *root) {
+        vector< vector < int > > result;
+        result.clear();
+        if ( !root ) {
+            return result;
+        }
+        queue < pair < TreeNode*, int > > Q;
+        while ( !Q.empty() ) {
+            Q.pop();
+        }
+        Q.push(pair < TreeNode*, int >(root,0));
+        vector< int > t;
+        t.clear();
+        while( !Q.empty() ) {
+            auto p = Q.front();
+            Q.pop();
+            t.push_back(p.first->val);
+            if ( Q.empty() || p.second != Q.front().second ) {
+                result.push_back(t);
+                t.clear();
+            }
+            if ( p.first->left ) {
+                Q.push(pair < TreeNode*, int >(p.first->left,p.second+1));
+            }
+            if ( p.first->right ) {
+                Q.push(pair < TreeNode*, int >(p.first->right,p.second+1));
+            }
+        }
+        return result;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>II not hard too</h3>
+<p>Use stack first then put them into vector.
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int> > levelOrderBottom(TreeNode *root) {
+        stack < vector < int > > S;
+        while ( !S.empty() ) {
+            S.pop();
+        } 
+        vector < vector < int > > result;
+        result.clear();
+        if ( !root ) {
+            return result;
+        }
+        queue < pair < TreeNode*, int > > Q;
+        while ( !Q.empty() ) {
+            Q.pop();
+        }
+        Q.push(pair < TreeNode*, int >(root,0));
+        vector < int > t;
+        t.clear();
+        while ( !Q.empty() ) {
+            auto p = Q.front();
+            Q.pop();
+            t.push_back(p.first->val);
+            if ( Q.empty() || p.second != Q.front().second ) {
+                S.push(t);
+                t.clear();
+            }
+            if ( p.first->left ) {
+                Q.push(pair< TreeNode*, int>(p.first->left,p.second+1));
+            }
+            if ( p.first->right ) {
+                Q.push(pair< TreeNode*, int>(p.first->right,p.second+1));
+            }
+        }
+        while ( !S.empty() ) {
+            result.push_back(S.top());
+            S.pop();
+        }
+        return result;
+    }
+};
+</p>
