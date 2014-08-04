@@ -108,7 +108,6 @@ public:
 </p>
 <h3>II using reverse</h3>
 <p>Put the result in vector, after BFS, reverse it.
-{% highlight cpp linenos %}
 /**
  * Definition for binary tree
  * struct TreeNode {
