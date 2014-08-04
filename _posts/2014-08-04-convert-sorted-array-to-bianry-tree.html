@@ -1,0 +1,92 @@
+---
+layout: post
+title: convert array/list to binary search tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Array</h3>
+<p>Not hard, find the middle item, build the node, build left child and right child.Recusive.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode *sortedArrayToBST(vector<int> &num) {
+        int  n = num.size();
+        if ( 0 == n ) {
+            return NULL;
+        }
+        return buildTree(num,0,n-1);
+    }
+    TreeNode* buildTree( vector< int >& num, int left, int right ) {
+        if ( left > right ) {
+            return NULL;
+        }
+        int mid = right+(left-right)/2;
+        TreeNode* node = new TreeNode(num[mid]);
+        node->left = buildTree(num,left,mid-1);
+        node->right = buildTree(num,mid+1,right);
+        return node;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>list</h3>
+<p>Not hard too.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode *sortedListToBST(ListNode *head) {
+        if ( !head ) {
+            return NULL;
+        }
+        int n = 0;
+        ListNode* p = head;
+        while(p) {
+            n++;
+            p = p->next;
+        }
+        return buildTree(head,n);
+    }
+    TreeNode* buildTree(ListNode* head, int n) {
+        if ( !head || n == 0 ) {
+            return NULL;
+        }
+        ListNode* p = head;
+        for( int i = 1; i < (n+1)/2; i++ ) {
+            p = p->next;
+        }
+        TreeNode * t = new TreeNode(p->val);
+        t->left = buildTree(head,(n+1)/2-1);
+        if ( p->next ) {
+            t->right = buildTree(p->next,n-(n+1)/2);
+        }
+        return t;
+    }
+};
+{% endhighlight %}
+</p>

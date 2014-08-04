@@ -1,0 +1,89 @@
+---
+layout: post
+title: symmetric tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Intersting problem</h3>
+<p>Both preorder travel and postorder travel can work. However, inorder travel does not work.<strong>When a node it NULL do not forget add #</strong>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode *root) {
+        string s1 = "";
+        string s2 = "";
+        lfs(root,s1);
+        rfs(root,s2);
+        return s1 == s2;
+    }
+    void lfs( TreeNode* root, string& s ) {
+        if ( !root ) {
+            s += "#";
+            return;
+        }
+        lfs(root->left,s);
+        lfs(root->right,s);
+         s += root->val+'0';
+    }
+    void rfs( TreeNode* root, string& s ) {
+        if ( !root ) {
+            s += "#";
+            return;
+        }
+        rfs(root->right,s);
+        rfs(root->left,s);
+        s += root->val+'0';
+    }
+};
+{% endhighlight %}
+</p>
+<h3>Easy understand version</h3>
+<p>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode *root) {
+        return check(root,root);
+    }
+    bool check( TreeNode* r1, TreeNode* r2 ) {
+        if ( !r1 && !r2 ) {
+            return true;
+        }
+        if ( !r1 ) {
+            return false;
+        }
+        if ( !r2 ) {
+            return false;
+        }
+        if ( r1->val != r2->val ) {
+            return false;
+        }
+        if ( !check(r1->left,r2->right) ) {
+            return false;
+        }
+        if ( !check(r1->right,r2->left) ) {
+            return false;
+        }
+        return true;
+    }
+};  
+{% endhighlight %}
+</p>

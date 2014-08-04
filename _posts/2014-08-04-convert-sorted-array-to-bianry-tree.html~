@@ -1,0 +1,8 @@
+---
+layout: post
+title: convert array/list to binary search tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Array</h3>
+<p>Not hard, find the middle item, </p>
