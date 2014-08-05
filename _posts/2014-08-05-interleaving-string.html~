@@ -5,4 +5,4 @@ category: leetcode
 ---
 <h2>{{ page.title }}</h2>
 <h3>Dynamic progaming</h3>
-<p></p>
+<p>This problem is a dynamic programing problem.<code></code></p>
