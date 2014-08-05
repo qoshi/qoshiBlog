@@ -1,0 +1,74 @@
+---
+layout: post
+title: binary tree zigzag level order travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Like level travel</h3>
+<p>Using two queues or two stack could resolve this problem.<strong>When push tv to result, do not forget to check the sizeof tv.(If a tree has only one root TreeNode.)</strong>
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int> > zigzagLevelOrder(TreeNode *root) {
+        vector < vector < int > > result;
+        result.clear();
+        if ( !root ) {
+            return result;
+        }
+        stack < TreeNode* > S1;
+        stack < TreeNode* > S2;
+        while ( !S1.empty() ) {
+            S1.pop();
+        }
+        while ( !S2.empty() ) {
+            S2.pop();
+        }
+        S1.push(root);
+        vector < int > tv;
+        tv.clear();
+        while ( !S1.empty() || !S2.empty() ) {
+            while ( !S1.empty() ) {
+                TreeNode* t = S1.top();
+                S1.pop();
+                tv.push_back(t->val);
+                if ( t->left ) {
+                    S2.push(t->left);
+                }
+                if ( t->right ) {
+                    S2.push(t->right);
+                }
+            }
+            if ( tv.size() > 0 ) {
+                result.push_back(tv);
+                tv.clear();
+            }
+            while ( !S2.empty() ) {
+                TreeNode* t = S2.top();
+                S2.pop();
+                tv.push_back(t->val);
+                if ( t->right ) {
+                    S1.push(t->right);
+                }
+                if ( t->left ) {
+                    S1.push(t->left);
+                }
+            }
+            if ( tv.size() > 0 ) {
+                result.push_back(tv);
+                tv.clear();
+            }
+        }
+        return result;
+    }
+};  
+{% endhighlight %}
+</p>

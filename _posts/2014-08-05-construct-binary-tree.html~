@@ -1,0 +1,7 @@
+---
+layout: post
+title: construct binary tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Inorder and postOrder</h3>

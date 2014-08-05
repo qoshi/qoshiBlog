@@ -1,0 +1,10 @@
+---
+layout: post
+title: valid binary search tree
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Need think twice</h3>
+<p>A Tree is vaild binary search tree must meet the requirment below.
+  
+</p>

@@ -1,0 +1,6 @@
+---
+layout: post
+title: binary tree zigzag level order travelsal
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
