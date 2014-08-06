@@ -1,0 +1,40 @@
+---
+layout: post
+title: distinct subsequences
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>A little hard dynamic problem</h3>
+<p>I solved this problem at the first time, but the second time when I meet this, I did not figure it out.T_T</p>
+<p><code>dp[i][j]</code> means how many distinct subsequences of <code>S.substr(0,j)</code> and <code>T.substr(0,i)</code>.<code>dp[i][j]</code> could be transfromed from the below ways(sum them up).
+<ul>
+  <li><code>dp[i][j-1]</code> no matter what <code>S[j-1]</code> is.</li>
+  <li><code>dp[i][j-1]</code> if <code>S[j-1] == T[i-1]</code>.</li>
+</ul>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int numDistinct(string S, string T) {
+        int n = T.length();
+        int m = S.length();
+        if ( n > m ) {
+            return 0;
+        }
+        int dp[n+1][m+1];
+        memset(dp,0,sizeof(dp));
+        for ( int i = 0; i <= m; i++ ) {
+            dp[0][i] = 1;
+        }
+        for ( int i = 1; i <= n; i++ ) {
+            for ( int j = 1; j <= m; j++ ) {
+                    dp[i][j] = dp[i][j-1];
+                if ( T[i-1] == S[j-1] ) {
+                    dp[i][j] += dp[i-1][j-1];
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
+{% endhighlight %}
+</p>
