@@ -1,0 +1,71 @@
+---
+layout: post
+title: unique binary search tree I&II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I dynamic problem</h3>
+<p><code>dp[i]</code> means the amount of unique binary search tree that formed by <code>i</code> elements.So, <code>dp[i] = sum(dp[j]*dp[i-j])</code> and <code>j</code> is from 0 to i-1 and means the elemtnts of node<code>i</code>'s left child tree.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int numTrees(int n) {
+        int dp[n+1];
+        memset(dp,0,sizeof(dp));
+        dp[0] = 1;
+        dp[1] = 1;
+        for ( int i = 2; i <= n; i++ ) {
+            for ( int j = 0; j < i; j++ ) {
+                dp[i] += dp[j]*dp[i-j-1];
+            }
+        }
+        return dp[n];
+    }
+};
+{% endhighlight %}
+</p>
+<h3>II a little hard</h3>
+<p>While problem I is solved, problem II seems not hard. For a interval[a,b],enumerate the root of the tree. Build the left child tree and right child tree using the left elements and right elements. Connect each kind of the left and right and push it into result and recursive.
+{% highlight cpp linenos %}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode *> generateTrees(int n) {
+        return build(1,n);
+    }
+    
+    vector<TreeNode* > build( int start, int end ) {
+        vector<TreeNode* > result;
+        if ( start > end ) {
+            result.push_back(NULL);
+            return result;
+        }
+        for ( int i = start; i <= end; i++ ) {
+            vector<TreeNode* > resultLeft = build(start,i-1);
+            int ll = resultLeft.size();
+            vector<TreeNode* > resultRight = build(i+1,end);
+            int rl = resultRight.size();
+            for ( int j = 0; j < ll; j++ ) {
+                for ( int k = 0; k < rl; k++ ) {
+                    TreeNode* node = new TreeNode(i);
+                    node->left = resultLeft[j];
+                    node->right = resultRight[k];
+                    result.push_back(node);
+                }
+            }
+        }
+        return result;
+    }
+    
+};
+{% endhighlight %}
+
+</p>
