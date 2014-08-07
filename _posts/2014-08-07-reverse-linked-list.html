@@ -1,0 +1,53 @@
+---
+layout: post
+title: reverse linked list II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>not hard</h3>
+<p>add a head before head, and walk m step and then reverse n-m+1 element. After that connect the reset list.<strong>Watch out! m<=n </strong>.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverseBetween(ListNode *head, int m, int n) {
+        if ( !head || n == m ) {
+            return head;
+        }
+        ListNode* h = new ListNode(-1);
+        h->next = head;
+        ListNode* p = h;
+        int t = 1;
+        while ( t < m ) {
+            t++;
+            p = p->next;
+        }
+        ListNode* q = p->next;
+        p->next = NULL;
+        ListNode* qnext = NULL;
+        ListNode* r = NULL;
+        while ( t <= n ) {
+            qnext = q->next;
+            q->next = p->next;
+            if ( NULL == r ) {
+                r = q;
+            }
+            p->next = q;
+            q = qnext;
+            t++;
+        }
+        r->next = q;
+        head = h->next;
+        delete(h);
+        return head;
+    }
+};
+{% endhighlight %}
+</p>
