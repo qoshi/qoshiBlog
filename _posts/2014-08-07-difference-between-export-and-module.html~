@@ -1,0 +1,7 @@
+---
+layout: post
+title: difference between export and module.export in sea.js
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+

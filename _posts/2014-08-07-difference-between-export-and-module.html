@@ -1,0 +1,8 @@
+---
+layout: post
+title: difference between export and module.export in sea.js
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<p>Today I am trying to use sea.js to build a tiny webApp, I found some other webApp was built by sea.js.I just do not understand the difference between <code>export</code> and <code>module.export</code>. After read <a href="http://cnodejs.prg/topic/5231a630101e574521e45ef8">this</a>. I understand the difference.</p>
+<p><code>export</code> and <code>module.export</code> are two pointers point to a same area in memory, we called it objectA.We can use <code>export.xxx=...</code> and <code>module.export[]=...</code> to add some new function and attributes to objectA. However, if we use something like this<code>export = {x:1,y:2}</code> or <code>module.export = function() {}</code>, what do we really have done? We just ask for a new area of memory and point the <code>export</code> and <code>module.export</code> to this new area. If we do not point the two pointer to the same object, things become terrible. That's why when we do something like<code>module.export={a:b,c:d}</code> we must do this <code>export = dodule.export</code>. The most easy understanding way is :<strong>Just remeber <code>export</code> and <code>module.export</code> is two pointers and they need to point to the same object forever.</strong></p>
