@@ -1,0 +1,91 @@
+---
+layout: post
+title: subset I & II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I a little trouble</h3>
+<p>I use O(n) extra space to mark whether each element is used to get ride of duplicates. This time, I add some conditions in DFS to save those spaces.
+<ul>
+  <li>First check whether result is empty. If it is empty , push current elemt to t.</li>
+  <li>Second, if result is not empty, check whether t(saving current one result) is empty. If t is empty and current element is not same as the first element in the last vector of result. push it into t.</li>
+  <li>If t is not empty, but current element is not same as the last element in t, push it into t.</li>
+</ul>  
+{% highlight cpp linenos %}
+class Solution {
+private:
+    vector< vector< int > > result;
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        result.clear();
+        vector< int > t;
+        t.clear();
+        result.push_back(t);
+        int n = S.size();
+        if ( 0 == n ) {
+            return result;
+        }
+        sort(S.begin(),S.end());
+        for ( int i = 1; i <= n; i++  ) {
+            t.clear();
+            DFS(S,t,0,i);
+        }
+        return result;
+    }
+    void DFS( vector< int > &s, vector< int >& t, int start, int len ) {
+        if ( 0 == len ) {
+            result.push_back(t);
+            return;
+        }
+        for ( int i = start; i < s.size(); i++ ) {
+            if ( ( 1 == result.size() ) || ( 0 == t.size() && s[i] != result[result.size()-1][0] )  || ( s[i] != t[t.size()-1] ) ) {
+                t.push_back(s[i]);
+                DFS(s,t,i+1,len-1);
+                t.pop_back();
+            }
+        }
+    }
+}; 
+{% endhighlight %}
+<h3>II a little more trouble</h3>
+<p>A good understanding of DFS can resolve this problem. Assuming that we generate the result from length 1 to the sizeof S.</p>
+<p><code>len = 1</code>We go throgh s, enumerate the first element. The first element must be chosen. After that, the next first element must not same as the before one. Because the length now is 1, and if they are the same, they become duplicate result. </p>
+<p><code>len = 2</code>We need to chose the first element using the same way, then the second element.</p>
+<p>
+{% highlight cpp linenos %}
+class Solution {
+private:
+    vector< vector< int > > result;
+public:
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        int n = S.size();
+        result.clear();
+        vector< int > t;
+        t.clear();
+        result.push_back(t);
+        if ( 0 == n ) {
+            return result;
+        }
+        sort(S.begin(),S.end());
+        for( int i = 1; i <= n; i++ ) {
+            t.clear();
+            DFS(S,t,0,i);
+        }
+        return result;
+    }
+    void DFS( vector< int >& s, vector< int >&t, int start, int len ) {
+        if ( 0 == len ) {
+            result.push_back(t);
+            return;
+        }
+        for ( int i = start; i < s.size(); i++ ) {
+            if ( ( start == i ) || ( s[i] != s[i-1] ) ) {
+                t.push_back(s[i]);
+                DFS(s,t,i+1,len-1);
+                t.pop_back();
+            }
+        }
+    }
+};  
+{% endhighlight %}
+</p>
