@@ -1,0 +1,59 @@
+---
+layout: post
+title: remove duplicates from sorted array I&II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I not hard</h3>
+<p>Use two pointer <code>i = 0</code> and <code>j = 1</code>.If they are the same , point<code>j</code> to the next. Otherwise, put <code>A[j]</code> to the next of <code>i</code>, then point <code>j</code> to the next.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int removeDuplicates(int A[], int n) {
+        if ( n <= 1 ) {
+            return n;
+        }
+        int i = 0;
+        int j = 1;
+        while ( j < n ) {
+            if ( A[i] == A[j] ) {
+                j++;
+            } else {
+                A[++i] = A[j++];
+            }
+        }
+        return i+1;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>II not hard too</h3>
+<p>Use some a valiable to record the times <code>A[i]</code> and <code>A[j]</code> are same.Then do the same thing.<strong>Attention that when they are same and mark is not reach 1, donot forget set <code>A[++i]</code> with <code>A[j++]</code>.</strong>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int removeDuplicates(int A[], int n) {
+        if ( n <= 2 ) {
+            return n;
+        }
+        int mark = 0;
+        int i = 0;
+        int j = 1;
+        while ( j < n ) {
+            if ( A[i] == A[j] ) {
+                if ( mark < 1 ) {
+                    A[++i] = A[j++];
+                    mark++;
+                } else {
+                    j++;
+                }
+            } else {
+                A[++i] = A[j++];
+                mark = 0;
+            }
+        }
+        return i+1;
+    }
+};  
+{% endhighlight %}
+</p>

@@ -1,0 +1,7 @@
+---
+layout: post
+title: remove duplicates from sorted array I&II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I</h3>
