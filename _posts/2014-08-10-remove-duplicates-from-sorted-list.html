@@ -1,0 +1,40 @@
+---
+layout: post
+title: rmove duplicated element in sorted list I&II
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>I easy problem</h3>
+<p>Go throhgh the whole list.Use two pointers,<code>p</code>point to head at first, <code>q</code> point to next of p. If p and q have different value, p and q move to their next. Otherwise, delete q and move q to its next.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if ( !head || !head->next ) {
+            return head;
+        }
+        ListNode* p = head;
+        ListNode* q = head->next;
+        while ( q ) {
+            if ( p->val != q->val ) {
+                p = q;
+                q = p->next;
+            } else {
+                p->next = q->next;
+                delete(q);
+                q = p->next;
+            }
+        }
+        return head;
+    }
+};  
+{% endhighlight %}
+</p>
