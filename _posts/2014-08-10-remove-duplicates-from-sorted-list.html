@@ -1,6 +1,6 @@
 ---
 layout: post
-title: rmove duplicated element in sorted list I&II
+title: remove duplicates from sorted list I&II
 category: leetcode
 ---
 <h2>{{ page.title }}</h2>
@@ -33,6 +33,60 @@ public:
                 q = p->next;
             }
         }
+        return head;
+    }
+};  
+{% endhighlight %}
+</p>
+<h3>II is not very head</h3>
+<p>When we solve the linked list problem, add a node before the head is always convience way to avoid the special condition of the head. We add a node before the head, and use three pointer <code>pre</code><code>p</code><code></code>. if p and q have the same value, delete q and make a mark. Otherwise check the mark, if marked delete p.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if ( !head || !head->next ) {
+            return head;
+        }
+        ListNode* newHead = new ListNode(-1);
+        newHead->next = head;
+        ListNode* pre = newHead;
+        ListNode* p = head;
+        ListNode* q = head->next;
+        int mark = 0;
+        while ( q ) {
+            if ( p->val == q->val ) {
+                p->next = q->next;
+                delete(q);
+                q = p->next;
+                mark = 1;
+            } else {
+                if ( 1 == mark ) {
+                    mark = 0;
+                    delete(p);
+                    pre->next = q;
+                    p = q;
+                    q = q->next;
+                } else {
+                    pre = p;
+                    p = p->next;
+                    q = q->next;
+                }
+            }
+        }
+        if ( 1 == mark ) {
+            pre->next = q;
+            delete(p);
+        }
+        head = newHead->next;
+        delete(newHead);
         return head;
     }
 };  
