@@ -1,0 +1,68 @@
+---
+layout: post
+title: partition list
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Easy</h3>
+<p>Go through the list, put every node in right position.
+{% highlight cpp linenos %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *partition(ListNode *head, int x) {
+        if ( !head ) {
+            return head;
+        }
+        ListNode* left = NULL;
+        ListNode* right = NULL;
+        ListNode* lr = NULL;
+        ListNode* rr = NULL;
+        ListNode* p = head;
+        ListNode* q = NULL;
+        while ( p ) {
+            q = p->next;
+            if ( p->val < x ) {
+                if ( NULL == left ) {
+                    left = p;
+                    p->next = NULL;
+                    lr = p;
+                } else {
+                    lr->next = p;
+                    p->next = NULL;
+                    lr = lr->next;
+                }
+            } else {
+                if ( NULL == right ) {
+                    right = p;
+                    p->next = NULL;
+                    rr = p;
+                } else {
+                    rr->next = p;
+                    p->next = NULL;
+                    rr = rr->next;
+                }
+            }
+            p = q;
+        }
+        if ( !right ) {
+            return left;
+        }
+        if ( !left ) {
+            return right;
+        }
+        lr->next = right;
+        return left;
+    }
+};  
+{% endhighlight %}
+</p>
+
+ 
