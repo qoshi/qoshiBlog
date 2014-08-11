@@ -1,0 +1,8 @@
+---
+layout: post
+title: combinations
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Easy problem using DFS</h3>
+<p>This problem is same like subsets,</p>

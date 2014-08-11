@@ -1,0 +1,36 @@
+---
+layout: post
+title: combinations
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Easy problem using DFS</h3>
+<p>This problem is same like subsets, put an element in a vector, and find the combinations of the rest elements with lenght-1.
+{% highlight cpp linenos %}
+class Solution {
+private:
+    vector< vector< int > > result;
+public:
+    vector<vector<int> > combine(int n, int k) {
+        result.clear();
+        if ( k == 0 || n < k ) {
+            return result;
+        }
+        vector< int > t;
+        t.clear();
+        DFS(1,n,k,t);
+        return result;
+    }
+    void DFS( int start, int end, int len, vector< int >& t ) {
+        if ( 0 == len ) {
+            result.push_back(t);
+        }
+        for( int i = start; i <= end; i++ ) {
+            t.push_back(i);
+            DFS(i+1,end,len-1,t);
+            t.pop_back();
+        }
+    }
+ };  
+{% endhighlight %}
+</p>
