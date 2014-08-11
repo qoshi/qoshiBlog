@@ -1,66 +1,353 @@
----
-layout: post
-title: partition list
-category: leetcode
----
-<h2>{{ page.title }}</h2>
-<h3>Easy</h3>
-<p>Go through the list, put every node in right position.
-{% highlight cpp linenos %}
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode *partition(ListNode *head, int x) {
-        if ( !head ) {
-            return head;
-        }
-        ListNode* left = NULL;
-        ListNode* right = NULL;
-        ListNode* lr = NULL;
-        ListNode* rr = NULL;
-        ListNode* p = head;
-        ListNode* q = NULL;
-        while ( p ) {
-            q = p->next;
-            if ( p->val < x ) {
-                if ( NULL == left ) {
-                    left = p;
-                    p->next = NULL;
-                    lr = p;
-                } else {
-                    lr->next = p;
-                    p->next = NULL;
-                    lr = lr->next;
-                }
-            } else {
-                if ( NULL == right ) {
-                    right = p;
-                    p->next = NULL;
-                    rr = p;
-                } else {
-                    rr->next = p;
-                    p->next = NULL;
-                    rr = rr->next;
-                }
-            }
-            p = q;
-        }
-        if ( !right ) {
-            return left;
-        }
-        if ( !left ) {
-            return right;
-        }
-        lr->next = right;
-        return left;
+[yas] Discovered there was already *scratch* in fundamental-mode
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode
+Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/fundamental-mode/.yas-setup.el (source)...done
+[yas] Prepared just-in-time loading for ~/.emacs.d/plugins/yasnippet/snippets
+[yas] Reloaded everything (snippets will load just-in-time)....
+[yas] Loading for `lisp-interaction-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode) (quote lisp-interaction-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/lisp-interaction-mode
+[yas] Loading for `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/emacs-lisp-mode
+[yas] Loading for `prog-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode) (quote prog-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode
+Loading /Users/lulala/.emacs.d/plugins/yasnippet/snippets/prog-mode/.yas-setup.el (source)...done
+For information about GNU Emacs and the GNU system, type C-h C-a.
+byte-code: Text is read-only: #<buffer  *Minibuf-1*>
+call-interactively: Text is read-only [2 times]
+Scanning for dabbrevs...done
+dabbrev--safe-replace-match: Text is read-only
+Making completion list...
+Tramp: Opening connection for root@lulala.local using sudo...
+Tramp: Sending command `exec sudo -u root -s -H -p Password:'
+
+Tramp: Waiting for prompts from remote shell
+Tramp: Sending Password
+Tramp: Sending command `exec sudo -u root -s -H -p Password:'
+Tramp: Found remote shell prompt on `lulala.local'
+Tramp: Opening connection for root@lulala.local using sudo...done
+Making completion list...
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html'...done
+(New file)
+[yas] Loading for `html-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode) (quote html-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/html-mode
+[yas] Loading for `text-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode) (quote text-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/text-mode
+[yas] Loading for `nxml-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode) (quote nxml-mode)))!
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Loading vc-git...done
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+[yas] Loading compiled snippets from /Users/lulala/.emacs.d/plugins/yasnippet/snippets/nxml-mode
+[yas] snippet expanded.
+[yas] Snippet 0 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+basic-save-buffer-2: Wrong type argument: stringp, nil
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124fHz.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html~...done
+basic-save-buffer-2: Wrong type argument: stringp, nil
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124RRC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+[yas] Snippet 1 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html~...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124ebI.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124rlO.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11244vU.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-partition-list.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-partition-list.html#
+tramp-set-auto-save-file-modes: Wrong type argument: stringp, nil
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124F6a.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-partition-list.html#...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124SEh.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124fOn.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124sYt.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11245iz.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+[yas] Snippet 2 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124rsC.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.112442I.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124FBP.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+[yas] snippet expanded.
+[yas] Snippet 3 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124SLV.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124fVb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+~ 
+No match [2 times]
+Making completion list...
+~/qoshiBlog 
+Making completion list...
+byte-code: End of buffer
+byte-code: Beginning of buffer
+Making completion list...
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html'...done
+(New file)
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+(New file)
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124sfh.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+[yas] Snippet 4 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11245pn.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] Snippet 5 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html~...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124G0t.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124T-z.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124FID.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Undo! [3 times]
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124SSJ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] Snippet 5 exited.
+[yas] snippet expanded.
+[yas] Snippet 6 exited.
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124fcP.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124smV.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Renaming /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html~...done
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11245wb.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124G7h.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124TFo.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124gPu.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124tZ0.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124fjD.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124stJ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+(No changes need to be saved) [2 times]
+Mark set [2 times]
+Saved text until ";
     }
 };  
 {% endhighlight %}
 </p>
+
+ 
+"
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html'...done
+
+Tramp: Checking `vc-registered' for /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Tramp: Inserting `/sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html'...done
+Mark set [3 times]
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.112453P.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124GCW.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124TMc.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] Snippet 7 exited.
+call-interactively: End of buffer
+Quit
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124gWi.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124tgo.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11246qu.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+History item: 1
+byte-code: Beginning of buffer [2 times]
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124H10.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11245-D.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+byte-code: End of buffer
+[yas] snippet expanded.
+[yas] Snippet 8 exited.
+[yas] snippet expanded.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124GJK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] Snippet 9 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124TTQ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124gdW.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124tnc.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11246xi.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124H8o.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124UGv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124hQ1.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124TaE.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124gkK.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124tuQ.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.112464W.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124HDd.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124UNj.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124hXp.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Auto-saving...done
+Undo!
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124uhv.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11247r1.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124t1E.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+[yas] snippet expanded.
+[yas] Snippet 10 exited.
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11246_K.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Mark set
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124HKR.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+History item: 1
+byte-code: Beginning of buffer
+byte-code: End of buffer [2 times]
+(No changes need to be saved)
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124UUX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+History item: 1
+byte-code: Beginning of buffer
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124hed.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+completing-read-default: Command attempted to use minibuffer while in minibuffer [2 times]
+Quit
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124uoj.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.11247yp.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+(No changes need to be saved)
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124I9v.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#
+Auto-saving...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124VH2.html# to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/#_asudo_broot@lulala.local_b_aUsers_alulala_aqoshiBlog_a__posts_a2014-08-10-remove-duplicates-from-sorted-list.html#...done
+Auto-saving...done
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124HRF.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124UbL.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124hlR.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124uvX.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.112475d.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+Quit
+History item: 1
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...
+Copying /var/folders/0t/k67qqqb56m746jjpsxycfc8m0000gn/T/tramp.1124IEk.html to /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html...done
+Wrote /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-remove-duplicates-from-sorted-list.html
+History item: 1
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...
+user-error: Save not confirmed
+Saving file /sudo:root@lulala.local:/Users/lulala/qoshiBlog/_posts/2014-08-10-partition-list.html...

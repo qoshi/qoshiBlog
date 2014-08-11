@@ -1,0 +1,50 @@
+---
+layout: post
+title: maximal rectangle
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Typical 2d dynamic programing</h3>
+<p>When we meet such a question like this. We could think the problem like this.
+</p>
+<h4>How could we resolve this problem if it is a line.</h4>
+<p>This is easy, using <code>dp[i]</code> to record the maximal continous number of '1'. If char in <code>i</code> then <code>dp[i] = dp[i-1]+1</code>. Otherwise, <code>dp[i] = 0</code>. Then we find the maximal value in dp.</p>
+<h4>When this problem comes in matrix</h4>
+<p>It is not a hard question too.Using<code>dp[i][j]<code> record the continous '1' in row<code>i</code> before <code>j</code>. So we get the answer by rows. Supposing that we get <code>dp[i][j]</code>. Now we need to check the rows before <code>i</code> to find the bigest matrix filled with '1' and <strong>the char in <code>[j]</code></strong> must be '1'. So, we check row<code>k</code> before <code>i</code> and get the minmal length during<code>dp[i][j]</code>and<code>dp[k][j]</code>. Then multiply the rows, we get each size of matrixs like this and we record the maximal value as result.
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char> > &matrix) {
+        int n = matrix.size();
+        if ( !n ) {
+            return 0;
+        }
+        int m = matrix[0].size();
+        if ( !m ) {
+            return 0;
+        }
+        int dp[n][m];
+        int result = 0;
+        memset(dp,0,sizeof(dp));
+        for ( int i = 0; i < n; i++ ) {
+            for ( int j = 0; j < m; j++ ) {
+                if ( '1' == matrix[i][j] ) {
+                    if ( j > 0 ) {
+                        dp[i][j] = dp[i][j-1]+1;
+                    } else {
+                        dp[i][j] = 1;
+                    }
+                    result = max(result,dp[i][j]);
+                    int r = dp[i][j];
+                    for ( int k = i-1; k >= 0 && dp[k][j]; k-- ) {
+                            r = min(r,dp[k][j]);
+                            result = max(result,r*(i-k+1));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};      
+{% endhighlight %}
+</p>

@@ -1,0 +1,6 @@
+---
+layout: post
+title: maximal rectangle
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
