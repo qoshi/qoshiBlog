@@ -1,0 +1,64 @@
+---
+layout: post
+title: word search
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Brute force DFS</h3>
+<p>This is my favourite. DFS from each point, and search every four directions. When search to a ponint, mark it. When we get back, clear the mark.
+{% highlight cpp linenos %}
+class Solution {
+private:
+int deltaX[4] = {0,0,-1,1};
+int deltaY[4] = {1,-1,0,0};
+public:
+    bool exist(vector<vector<char> > &board, string word) {
+        if ( word.length() == 0 ) {
+            return true;
+        }
+        int n = board.size();
+        if ( !n ) {
+            return false;
+        }
+        int m = board[0].size();
+        if ( !m ) {
+            return false;
+        }
+        if ( n*m < word.length() ) {
+            return false;
+        }
+        for ( int i = 0; i < n; i++ ) {
+            for ( int j = 0; j < m; j++ ) {
+                if ( DFS(i,j,board,word,0) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    bool DFS( int x, int y, vector< vector< char > >& board, string word, int index ) {
+        if ( board[x][y] != word[index] ) {
+            return false;
+        }
+        if ( index == word.length()-1 ) {
+            return true;
+        }
+        int n = board.size();
+        int m = board[0].size();
+        char mark = board[x][y];
+        board[x][y] = '.';
+        for ( int i = 0; i < 4; i++ ) {
+            int newX = x+deltaX[i];
+            int newY = y+deltaY[i];
+            if ( newX >= 0 && newX < n && newY >= 0 && newY < m ) {
+                if ( DFS(newX,newY,board,word,index+1) ) {
+                    return true;
+                }
+            }
+        }
+        board[x][y] = mark;
+        return false;
+    }
+};
+{% endhighlight %}
+</p>
