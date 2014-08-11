@@ -1,0 +1,12 @@
+---
+layout: post
+title: sort color
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>easy probem count sorting</h3>
+<p>because the range of keys is limited, so count sorting is the best way.
+{% highlight cpp linenos %}
+  
+{% endhighlight %}
+</p>
