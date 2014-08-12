@@ -1,0 +1,71 @@
+---
+layout: post
+title: set matrix zero
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Think twice</h3>
+<p>This problem use time complexity at least O(n*n), because we need visit each element at least once. Also we could use an matrix to mark the result of this matrix and this may takes space complexity O(n*n). A better way to resolve this problem is get two vector mark rows and columns, whch takes space complexity O(n). The best way to resolve this problem is using constant space complexity. We use mark<code>r</code> and <code>c</code> to mark whether the first row and the first column has zero. And we use first row and column to mark the matrix. Attention!<strong>After we mark the matrix, when we set zero of matrix, begin from the second row and second colum.</strong>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    void setZeroes(vector<vector<int> > &matrix) {
+        int r = 0;
+        int c = 0;
+        int n = matrix.size();
+        if ( !n ) {
+            return;
+        }
+        int m = matrix[0].size();
+        if ( !m ) {
+            return;
+        }
+        for ( int i = 0; i < n; i++ ) {
+            if ( 0 == matrix[i][0] ) {
+                c = 1;
+                break;
+            }
+        }
+        for ( int i = 0; i < m; i++ ) {
+            if ( 0 == matrix[0][i] ) {
+                r = 1;
+                break;
+            }
+        }
+        for ( int i = 1; i < n; i++ ) {
+            for ( int j = 1; j < m; j++ ) {
+                if ( 0 == matrix[i][j] ) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for ( int i = 1; i < n; i++ ) {
+            if ( 0 == matrix[i][0] ) {
+                for ( int j = 0; j < m; j++ ) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for ( int j = 1; j < m; j++ ) {
+            if ( 0 == matrix[0][j] ) {
+                for ( int i = 0; i < n; i++ ) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        if ( 1 == c ) {
+            for ( int i = 0; i < n; i++ ) {
+                matrix[i][0] = 0;
+            }
+        }
+        if ( 1 == r ) {
+            for ( int i = 0; i < m; i++ ) {
+                matrix[0][i] = 0;
+            }
+        }
+    }
+};  
+{% endhighlight %}
+</p>
+
