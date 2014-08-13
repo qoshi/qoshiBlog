@@ -1,0 +1,55 @@
+---
+layout: post
+title: anagrams
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Strange question</h3>
+<p>The description of this problem is terrible. After tried sometimes, I found that it asked me to put out all the strings who are anagrams. It means no matter they are couple or triple or more. If they are not alone, put them into result. For each string, sort it and get a hash-value of this string. put the strings have same hash-value into a vector. After traverse through the string list, then travrse the map we have built and get result.
+</p>
+<p>I write different hash functions for this questions but get different result.One time is AC, the other time I got WA. <code>r *= 26; r += s[i] - 'a';</code> is the wrong answer. <code>r *= 27; r += s[i]-'a'+1;</code>is the right one. Why the first one is wrong and the second one is wrong ? This is a example: "ab" and "b" could get same hash-value using the first one.</p>
+<p>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    vector<string> anagrams(vector<string> &strs) {
+        vector< string > result;
+        map< int , vector< int > > sMap;
+        sMap.clear();
+        result.clear();
+        int n = strs.size();
+        if ( !n ) {
+            return result;
+        }
+        for ( int i = 0; i < n; i++ ) {
+            int h = hash(strs[i]);
+            if ( sMap.find(h) == sMap.end() ) {
+                vector< int > t;
+                t.clear();
+                sMap[h] = t;
+            }
+            sMap[h].push_back(i);
+        }
+        for ( auto i = sMap.begin(); i != sMap.end(); i++ ) {
+            if ( i->second.size() > 1 ) {
+                for ( auto j = i->second.begin(); j != i->second.end(); j++ ) {
+                    result.push_back(strs[*j]);
+                }
+            }
+        }
+        return result;
+    }
+    int hash( string s ) {
+        string str = s;
+        sort(str.begin(),str.end());
+        int r = 0;
+        int  l = str.length();
+        for ( int i = 0; i < l; i++ ) {
+            r *= 27;
+            r += str[i]-'a'+1;
+        }
+        return r;
+    }
+};
+{% endhighlight %}
+</p>
