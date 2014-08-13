@@ -10,7 +10,7 @@ category: leetcode
 <h4>How could we resolve this problem if it is a line.</h4>
 <p>This is easy, using <code>dp[i]</code> to record the maximal continous number of '1'. If char in <code>i</code> then <code>dp[i] = dp[i-1]+1</code>. Otherwise, <code>dp[i] = 0</code>. Then we find the maximal value in dp.</p>
 <h4>When this problem comes in matrix</h4>
-<p>It is not a hard question too.Using<code>dp[i][j]<code> record the continous '1' in row<code>i</code> before <code>j</code>. So we get the answer by rows. Supposing that we get <code>dp[i][j]</code>. Now we need to check the rows before <code>i</code> to find the bigest matrix filled with '1' and <strong>the char in <code>[j]</code></strong> must be '1'. So, we check row<code>k</code> before <code>i</code> and get the minmal length during<code>dp[i][j]</code>and<code>dp[k][j]</code>. Then multiply the rows, we get each size of matrixs like this and we record the maximal value as result.
+<p>It is not a hard question too.Using<code>dp[i][j]</code> record the continous '1' in row<code>i</code> before <code>j</code>. So we get the answer by rows. Supposing that we get <code>dp[i][j]</code>. Now we need to check the rows before <code>i</code> to find the bigest matrix filled with '1' and <strong>the char in <code>[j]</code></strong> must be '1'. So, we check row<code>k</code> before <code>i</code> and get the minmal length during<code>dp[i][j]</code>and<code>dp[k][j]</code>. Then multiply the rows, we get each size of matrixs like this and we record the maximal value as result.
 {% highlight cpp linenos %}
 class Solution {
 public:
