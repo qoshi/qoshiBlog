@@ -1,0 +1,6 @@
+---
+layout: post
+title: climbing stairs
+category: leetcode
+---
+<h2>{{ page.title }}</h2>

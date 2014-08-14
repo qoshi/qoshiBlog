@@ -1,0 +1,43 @@
+---
+layout: post
+title: sqrt(x)
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Special binary search problem</h3>
+<p>Left bound is zero, and right bound is <code>max(x/2,1)</code>. Then do the binary search to find out the result. Some corner cases should be taken care of.
+<ul>
+  <li>When the target is 1, so we use<code>max(x/2,1)</code>.</li>
+  <li>When we caculate <code>mid*mid</code>, this may beyond the bound of<code>int</code>, we need use<code>long long</code>insteand of<code>int</code>.</li>
+  <li>When we write the comparative expression, put <code>long long</code> at left.</li>
+</ul>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    int sqrt(int x) {
+        long long left = 0;
+        long long right = max(x/2,1);
+        long long mid = 0;
+        while ( left <= right ) {
+            mid = left+(right-left)/2;
+            if ( mid*mid > x ) {
+                right = mid-1;
+            }
+            if ( mid*mid == x ) {
+                return mid;
+            }
+            if ( mid*mid < x && (mid+1)*(mid+1) > x ) {
+                return mid;
+            }
+            if ( (mid+1)*(mid+1) == x ) {
+                return mid+1;
+            }
+            if ( (mid+1)*(mid+1) < x ) {
+                left = mid+1;
+            }
+        }
+    }
+};
+{% endhighlight %}
+
+</p>

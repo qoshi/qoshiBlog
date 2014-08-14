@@ -1,0 +1,8 @@
+---
+layout: post
+title: sqrt(x)
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Special binary search problem</h3>
+<p></p>
