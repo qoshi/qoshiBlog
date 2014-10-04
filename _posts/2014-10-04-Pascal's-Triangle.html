@@ -1,0 +1,38 @@
+---
+layout: post
+title: Pascal's Triangle
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Not hard</h3>
+<p>One thing is important. You could not use <code>t[j]=t[j-1]+t[j]</code> to get the the jth element of the array. It was changed by you in the iteration last time.
+  {% highlight cpp linenos %}
+  class Solution {
+public:
+    vector<vector<int> > generate(int numRows) {
+        vector< vector< int > > result;
+        result.clear();
+        if ( 0 == numRows ) {
+            return result;
+        }
+        vector<int > t;
+        t.clear();
+        t.push_back(1);
+        result.push_back(t);
+        int temp,now;
+        for ( int i = 2; i <= numRows; i++ ) {
+            temp = 1;
+            for i( int j = 1; j < i-1; j++ ) {
+                now = t[j];
+                t[j] += temp;
+                temp = now;
+            }
+            t.push_back(1);
+            result.push_back(t);
+        }
+        return result;
+    }
+};
+  {% endhighlight %}
+
+<p> 
