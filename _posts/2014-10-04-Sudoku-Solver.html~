@@ -1,0 +1,7 @@
+---
+layout: post
+title: Soduku Solver
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3></h3>

@@ -1,0 +1,64 @@
+---
+layout: post
+title: Soduku Solver
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Brute force got TLE</h3>
+<p>This is a DFS problem. Every time, we could go through the board. Find an empty place, try every condition. When there is no empty space, return the result. But, this got TLE. </p>
+<h3>Better way</h3>
+<p>In the way before, we waste a lot of time in finding position. So, this time, we go through the board at first and record every empty space in a vector. Each time in DFS, we get an empty place in the vector, then enumerate every condition.
+  {% highlight cpp linenos %}
+  class Solution {
+private:
+    int cmark[9][10];
+    int rmark[9][10];
+    int smark[9][10];
+    vector<int > v;
+public:
+    void solveSudoku(vector<vector<char> > &board) {
+        memset(cmark,0,sizeof(cmark));
+        memset(rmark,0,sizeof(rmark));
+        memset(smark,0,sizeof(smark));
+        v.clear();
+        for ( int i = 0; i < 9; ++i ) {
+            for ( int j = 0; j < 9; ++j ) {
+                if ( board[i][j] == '.' ) {
+                    v.push_back(i*10+j);
+                } else {
+                    rmark[i][board[i][j]-'0'] = 1;
+                    cmark[j][board[i][j]-'0'] = 1;
+                    smark[i/3*3+j/3][board[i][j]-'0'] = 1;
+                }
+            }
+        }
+        dfs(board,0);
+    }
+    
+    bool dfs( vector<vector<char> > &board, int x ) {
+        if ( x == v.size() ) {
+            return true;
+        }
+        int i = v[x]/10;
+        int j = v[x]%10;
+        for ( int k = 1; k <= 9; ++k ) {
+            if ( rmark[i][k] == 0 && cmark[j][k] == 0 && smark[i/3*3+j/3][k] == 0 ) {
+                board[i][j] = k+'0';
+                rmark[i][k] = 1;
+                cmark[j][k] = 1;
+                smark[i/3*3+j/3][k] = 1;
+                if ( dfs(board,x+1) ) {
+                    return true;
+                }
+                rmark[i][k] = 0;
+                cmark[j][k] = 0;
+                smark[i/3*3+j/3][k] = 0;
+                board[i][j] = '.';
+            }
+        }
+        return false;
+    }
+};
+  {% endhighlight %}
+
+</p>
