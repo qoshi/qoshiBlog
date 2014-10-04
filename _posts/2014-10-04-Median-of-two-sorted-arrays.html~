@@ -1,0 +1,43 @@
+---
+layout: post
+title: Median of two sorted arrays
+category: leetcode
+---
+<h2>{{ page.title }}</h2>
+<h3>Get the median</h3>
+<p>Get the median of two arrays, it's something like get the Kth element of two arrays. So we need to figure out the Kth problem</p>
+<h3>Some thing like binary search</h3>
+<p>We get k/2th element of array A, and k/2th element of array B. If they are equal, return k/2th element of array A. Otherwise, if ( A[k/2-1] > B[k/2-1] ), we need to find the k/2th element of array A and array B+k/2. After this, recursive.</p>
+{% highlight cpp linenos %}
+class Solution {
+public:
+    double findMedianSortedArrays(int A[], int m, int B[], int n) {
+        if ( (m+n)%2 == 1 ) {
+            return findNth(A,m,B,n,(m+n)/2+1);
+        } else {
+            return double(findNth(A,m,B,n,(m+n)/2)+findNth(A,m,B,n,(m+n)/2+1))/2;
+        }
+    }
+    int findNth( int A[], int m, int B[], int n, int x ) {
+        if ( m == 0 ) {
+            return B[x-1];
+        }
+        if ( m > n ) {
+            return findNth(B,n,A,m,x);
+        }
+        if ( x == 1 ) {
+            return min(A[0],B[0]);
+        }
+        int m1 = min(m,x/2);
+        int m2 = x-m1;
+        if ( A[m1-1] == B[m2-1] ) {
+            return A[m1-1];
+        }
+        if ( A[m1-1] < B[m2-1] ) {
+            return findNth(A+m1,m-m1,B,n,m2);
+        }
+        return findNth(A,m,B+m2,n-m2,m1);
+    }
+};
+{% endhighlight %}
+
