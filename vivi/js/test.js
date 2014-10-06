@@ -33,6 +33,18 @@ var zt = {
         {
             name : "羊汤",
             description : "湿兄悄悄加上的"
+        },
+        {
+            name : "杨明宇黄焖鸡",
+            description : "终于有米饭了T_T"
+        },
+        {
+            name : "明鑫",
+            description : "不知道是不是这两个字，总之又有米饭了^^"
+        },
+        {
+            name : "北门米粉",
+            description : "又一家粉面哇T_T"
         }
     ],
 };
