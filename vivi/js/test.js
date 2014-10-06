@@ -85,8 +85,8 @@ function findSomeFood() {
 }
 
 function start() {
-    $("#start").hide("fast");
-    $("#result").show("fast");
+    $("#start").hide();
+    $("#result").show();
     findSomeFood();
 }
 
