@@ -103,7 +103,6 @@ function start() {
 }
 
 function closeDiv(event) {
-    alert(event.target);
     if ( zt.resultPool.length == 1 ) {
         alert("只剩人家一个了^^没有的选了^^");
         return;
