@@ -97,21 +97,23 @@ function findSomeFood() {
 }
 
 function start() {
-    alert("haha");
     $("#start").hide();
     $("#result").show();
     findSomeFood();
 }
 
+function closeDiv(event) {
+    alert(event.target);
+    if ( zt.resultPool.length == 1 ) {
+        alert("只剩人家一个了^^没有的选了^^");
+        return;
+    }
+    zt.resultPool.shift();
+    $(event.target).parents(".foodP").remove();
+}
+
 $(document).ready(function(){
     $("#startButton").on("click",start);
-    $("#startButton").on("touchend",start);
-    $("body").on("click","span",function(event){
-        if ( zt.resultPool.length == 1 ) {
-            alert("只剩人家一个了^^没有的选了^^");
-            return;
-        }
-        zt.resultPool.shift();
-        $(event.target).parents(".foodP").remove();
-    });
+    $("body").on("click","span",closeDiv);
+    $("body").on("touchend","span",closeDiv);
 });
