@@ -84,12 +84,16 @@ function findSomeFood() {
     },100);
 }
 
+function start() {
+    $("#start").hide("fast");
+    $("#result").show("fast");
+    findSomeFood();
+}
 
 $(document).ready(function(){
-    $("#startButton").on("click",function(){
-        $("#start").hide();
-        findSomeFood();
-    });
+    
+    $("#startButton").on("click",start);
+    $("#startButton").on("touchend",start);
     $("body").on("click","span",function(event){
         if ( zt.resultPool.length == 1 ) {
             alert("只剩人家一个了^^没有的选了^^");

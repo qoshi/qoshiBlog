@@ -1,6 +1,6 @@
-/* #result { */
-/*     display : none; */
-/* } */
+#result {
+    display : none; 
+} 
 
 #start {
     text-align : center;
