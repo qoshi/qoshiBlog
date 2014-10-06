@@ -97,13 +97,13 @@ function findSomeFood() {
 }
 
 function start() {
+    alert("haha");
     $("#start").hide();
     $("#result").show();
     findSomeFood();
 }
 
 $(document).ready(function(){
-    
     $("#startButton").on("click",start);
     $("#startButton").on("touchend",start);
     $("body").on("click","span",function(event){
