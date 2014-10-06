@@ -5,3 +5,7 @@
 #start {
     text-align : center;
 }
+
+#load {
+    display : none;
+}
