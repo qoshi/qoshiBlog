@@ -1,0 +1,6 @@
+---
+layout: post
+title: Summary Recently
+category: job
+---
+<h2>{{ page.title }}</h2>
